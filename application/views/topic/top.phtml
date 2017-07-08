@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $topicInfo['title']?></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/style.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/up.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/topic_base.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkService.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkPost.css?v=<?php echo STATIC_FILE_VERSION;?>">
+
+    <script src="<?php echo STATIC_DOMAIN;?>/js/jquery.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/lib/artDialog.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/common.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/operation_new.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/to-top.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/checkPost.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/scrollfix.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+<body>
+
+<div class="header" id="head-nav" style="background: #fff;border-bottom:solid 1px #ebebeb;">
+    <div class="mc-auto">
+        <div class="bor one">
+            <a href="/fanhui" class="icon iconfont" id="mc-num">
+                <img src="<?php echo STATIC_DOMAIN?>/images/checkService/back-c.png">
+            </a>
+        </div>
+        <div class="bor two">
+            <a href="/fenxiang/id/<?php echo $topicInfo['id']?>" class="icon iconfont"  id="mc-num02">
+                <img src="<?php echo STATIC_DOMAIN?>/images/checkService/share-c.png">
+            </a>
+        </div>
+        <?php if(isset($user) &&($is_join['role'] == 1 || $is_join['role'] == 2 || $topicInfo['uid'] == $user['uid'])){?>
+            <div class="bor there">
+                <a href="javascript:void(0);" class="icon iconfont edit-d"  id="mc-num03">
+                    <img src="<?php echo STATIC_DOMAIN?>/images/checkService/edit-c.png">
+                </a>
+            </div>
+        <?php }?>
+        <div class="text-tz">帖子</div>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+    <div class="page activity">
+        <div class="con <?php if($version>'3.0'){?>con1<?php }?>">
+            <p class="tit title mt10">
+                <?php if($topicInfo['is_recommend']==1){?>
+                    <span class="pic-g">公告</span>
+                <?php }?>
+                <?php if( 1 == $topicInfo['is_top'] ){ ?>
+                    <span class="pic-d">置顶</span>
+                <?php }?>
+                <?php if( 1 == $topicInfo['is_good'] ){ ?>
+                    <span class="pic-j">精</span>
+                <?php }?>
+                <?php echo $topicInfo['title']?>
+            </p>
+            <div class="sub-title layout-box mt10 gray-d">
+                <a href="/user/<?php echo $topicInfo['uid'];?>">
+                    <img class="avatar-35 mr10" src="<?php echo Common::show_img($topicInfo['avatar'],1,200,200);?>">
+                    <i class="<?php echo $topicInfo['ico_type'];?>"></i>
+
+                </a>
+                <div class="son-box fz14">
+                    <p class="nick-name">
+                        <a onclick="location.href='/user/<?php echo $topicInfo['uid'];?>'"><?php echo $topicInfo['nick_name'];?></a>
+                        <?php if(isset($user) && $version<'3.5'&&($is_join['role'] == 1 || $is_join['role'] == 2 || $topicInfo['uid'] == $user['uid'])){?>
+                            <a href="javascript:void(0);" class="top-edit edit-d"></a>
+                        <?php }?>
+                    </p>
+                    <p class="other-info fz12">
+                        <?php echo $topicInfo['add_time'];?>
+                        &nbsp;<i>[<?php if($topicInfo['type']==0){?>原创<?php }elseif($topicInfo['type']==1){?>转载<?php }else{?>才府独家<?php }?>]</i>
+                        <span class="read"><b></b><?php echo $topicInfo['view_num']?></span>
+                    </p>
+                </div>
+                <?php if(isset($user) &&($is_join['role'] == 1 || $is_join['role'] == 2 || $topicInfo['uid'] == $user['uid'])){?>
+                    <!-- <a class="right-btn" id="ope-top">
+                            <i class="font-ico down-ico"></i>
+                        </a>-->
+
+
+                    <div class="pop" id="topic-ope">
+                        <ul>
+                            <?php if(($topicInfo['uid'] == $user['uid'])){  ?>
+                                <li id="del-topic"class="half-bor-bottom"data-type="1"data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >删除</li>
+                            <?php }?>
+                            <?php if ($is_join['role'] == 1 || $is_join['role'] == 2){ ?>
+                                <?php if($topicInfo['is_top']==1){ ?>
+                                    <li data-type="1" data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" class="cancel-top half-bor-bottom">取消置顶</li>
+                                <?php }else{ ?>
+                                    <li data-type="1" data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" class="tops half-bor-bottom">置顶</li>
+                                <?php } ?>
+                                <?php if($topicInfo['is_good']==1){ ?>
+                                    <li data-type="2" class="cancel-top half-bor-bottom"data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >取消加精</li>
+                                <?php }else{ ?>
+                                    <li data-type="2" class="tops half-bor-bottom"data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >加精</li>
+                                <?php } ?>
+                                <?php if($topicInfo['is_recommend']==1){ ?>
+                                    <li data-type="3" class="cancel-top"data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >取消公告</li>
+                                <?php }else{ ?>
+                                    <li data-type="3" class="tops"data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >公告</li>
+                                <?php }} ?>
+                            <li class="cancle" data-id="<?php echo $topicInfo['id'];?>" data-token="<?php echo $token;?>" >取消</li>
+                        </ul>
+                    </div>
+                <?php }?>
+            </div>
+
+        </div>
+        <div class="con">
+            <div class="action">
+                <div class="content-area">
+                    <?php echo $topicInfo['content']?>
+                    <p>本文的所有图、文等著作权及所有权归原作者所有。</p>
+                </div>
+                <p class="report"><span>来自驿站: <b><a href='/yizhan/sid/<?php echo $topicInfo['sid'];?>'><?php echo $stageName;?></a></b> </span>
+                    <i>
+                        <?php if(isset($user)&&$topicInfo['uid'] != $user['uid']){ ?>
+                            <a class="report-btn" href="/jubao/type/4/id/<?php echo $topicInfo['id'];?>"><div class="f-r gray">举报</div></a>
+                        <?php }?>
+                    </i>
+                </p>
+            </div>
+            <!-- 打赏列表 -->
+            <div class="reward-list">
+                <?php include VIEWS_PATH . "/common/rewardList.phtml";?>
+            </div>
+            <!-- 打赏列表结束 -->
+            <!-- 喜欢列表 -->
+            <div class="like_user_more">
+                <?php include_once VIEWS_PATH . "/center/likeUserList.phtml";?>
+            </div>
+            <div class="con">
+                <div class="consult"id="consult">
+                    <div class="consult-t half-bor-bottom">
+                        <h3>评论 <span>(<em class="comment_num"><?php echo $commentList['size'];?></em>)</span></h3>
+                        <a class="comment" href="/comment/token/<?php echo $token?>/type/4/id/<?php echo $topicInfo['id'];?>/replyuid/<?php echo $topicInfo['uid'];?>/replyid/0"'>我要评论</a>
+                    </div>
+                    <!-- 评论列表 -->
+                    <div class="comment_list">
+                        <?php include_once VIEWS_PATH . "/common/comment.phtml";?>
+                    </div>
+                    <!-- 打评论列表结束 -->
+                </div>
+            </div>
+            $data[$key]['url'] = $token ? I_DOMAIN.'/t/'.$val['id'].'?token='.$token.'&version='.$version :I_DOMAIN.'/t/'.$val['id'].'?version='.$version;
+            <div class="con">
+                <div class="activities">
+                    <h2> <span></span> 猜你喜欢<?php if($version>='3.5'){?><a href="/goodTopicMore">更多<b class="link-icon"></b></a><?php }?></h2>
+                    <?php foreach($newList as $v){?>
+                        <div class="wonder layout-box half-bor-bottom">
+                            <?php if($v['push_img']){?>
+                                <div class="img"><a href = '<?php echo $v['url']?>'><img src="<?php echo IMG_DOMAIN.$v['push_img']?>" alt=""></a></div>
+
+                            <?php }?>
+                            <div class="<?php if($v['push_img']){echo "topic-info";}else{echo"topic-summary";}?>">
+                                <p class="p1 txt-cut"><a href = '<?php echo $v['url']?>'><?php echo $v['title']?></a></p>
+                                <?php if(!$v['push_img']){?>
+                                    <p class="txt"><?php echo Common::msubstr($v['summary'],0,30)?></p>
+                                <?php }?>
+                                <p class="p2"><i class="pepo"></i><?php echo $v['user_info']['nick_name']?><span><?php echo date('m-d H:i',strtotime($v['add_time']))?></span></p>
+                            </div>
+                        </div>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="mask"></div>
+        </div>
+    </div>
+</div>
+<div class="footers half-bor-top">
+    <a href="/dashang/token/<?php echo $token?>/type/4/id/<?php echo $topicInfo['id'];?>" class="f-reward">
+        <div class="mc-box"><img src="<?php echo STATIC_DOMAIN;?>/images/checkService/reward.png" alt=""></div> <span>打赏</span>
+    </a>
+    <?php if(!$topicInfo['is_like']){?>
+        <a href="javascript:void(0);" class="f-like" data-type="4" data-id="<?php echo $topicInfo['id'];?>" onclick="like(this,2)" >
+            <i class="recommend-icon fz25 "></i> 喜欢
+        </a>
+    <?php }else{?>
+        <a href="javascript:void(0);"class="f-like gray">
+            <i class="recommend-icon fz25 "></i> 已喜欢
+        </a>
+    <?php }?>
+    <a class='blues' href="/comment/token/<?php echo $token?>/type/4/id/<?php echo $topicInfo['id'];?>/replyuid/<?php echo $topicInfo['uid'];?>/replyid/0">评论</a>
+</div>
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+</script>
+</body>
+</html><?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2016/12/24
+ * Time: 17:01
+ */

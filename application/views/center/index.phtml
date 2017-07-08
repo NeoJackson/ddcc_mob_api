@@ -1,0 +1,70 @@
+<?php include_once VIEWS_PATH."/public/head.phtml";?>
+<link href="<?php echo STATIC_DOMAIN;?>/css/user_dynamic.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/photo.js"></script>
+<div class="content bg-white main_content">
+
+    <?php if(isset($user) && $user){?>
+        <div class="user-home-cover login-cover" id="cover" <?php if(isset($user_info['home_cover']) && $user_info['home_cover']){?>style="background-image: url('<?php echo IMG_DOMAIN.$user_info['home_cover']?>')"<?php }?>>
+            <div class="user-msg">
+                <span class="name fl"><a onclick="event.stopPropagation();location.href='/user/<?php echo $user['uid'];?>'"><?php echo $user['nick_name']?></a></span>
+                <a class="user-por" onclick="event.stopPropagation();location.href='/user/<?php echo $user['uid'];?>'">
+                    <img src="<?php echo Common::show_img($user['avatar'],1,130,130);?>" width="75" height="75">
+                    <?php if($version >= '2.3'){?>
+                    <i class="<?php echo $user['ico_type'];?>"></i>
+                    <?php }?>
+                </a>
+            </div>
+        </div>
+        <script>
+            $('.user-home-cover').css({height:getWindowWidth()*0.6+'px',backgroundSize:'100% '+getWindowWidth()*0.8+'px'});
+            window.addEventListener('resize', function(){
+                $('.user-home-cover').css({height:getWindowWidth()*0.6+'px',backgroundSize:'100% '+getWindowWidth()*0.8+'px'});
+            } , false);
+        </script>
+    <?php }?>
+
+    <div class="user-data-list d-fixed-top">
+        <!-- 动态列表内容-->
+        <?php include_once VIEWS_PATH."/center/content.phtml";?>
+    </div>
+    <?php if(isset($dynamic_list['size']) && $dynamic_list['size'] > 10) {?>
+        <div class="footer-loading" id="loadMore"><img src="<?php echo STATIC_DOMAIN;?>/images/loading.gif" height="35" width="35"></div>
+        <script src="<?php echo STATIC_DOMAIN;?>/js/page/contentloader.js"></script>
+        <script>
+            $(document).ready(function(){
+                $.fn.dynamicLoadMore = function(opts){
+                    var defaults = {
+                        loadType:1,//1、页面到达底部自动加载 2、点击更多进行加载
+                        isShowPage:false,//是否显示分页
+                        loadNumBeforeShowPage:6,//显示分页前的加载次数
+                        loadMoreBtn:$("#loadMore"),//加载更过按钮或者loading图标
+
+                        url:'/center/feedMore',
+
+                        pageSize:10,
+                        last:0,
+                        list:$(".user-data-list"),
+
+                        template:function(data){
+                            return data.data.html;
+                        }
+                    }
+                    opts = $.extend(defaults,opts);
+                    var requestData = {last:opts.last,size:opts.pageSize,token:token};
+                    $.fn.newLoadMoreByLast(opts.url,requestData,opts);
+                };
+                $.fn.dynamicLoadMore({loadType:1,loadMoreBtn:$("#loadMore"),pageSize:10,last:<?php echo $last;?>});
+            });
+        </script>
+    <?php }?>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.main_content').CommentOrShare({reload:false,change:false});
+        $('.main_content').Reward({reload:false,change:false});
+    });
+</script>
+<!-- 返回顶部 -->
+<div class="back-top font-ico up-ico back_top" title="返回顶部" style="display: none;"></div>
+</body>
+</html>

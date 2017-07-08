@@ -1,0 +1,54 @@
+<?php if($rewardList['size']>0) {?>
+    <div class="tz_box tz_box3">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            打赏记录
+            <li class="x3"></li>
+        </div>
+        <div class="tz_dashang">
+            <?php foreach($rewardList['list'] as $key => $val) {?>
+                <div class="ds_list clearfix">
+                    <li class="ds_left left">
+                        <div class="angel_box" onclick="location.href='/user/<?php echo $val['user']['uid'];?>'">
+                            <img src="<?php echo Common::show_img($val['user']['avatar'],1,80,80);?>" class="ds_photo">
+                            <i class="<?php echo $val['user']['ico_type'];?>"></i>
+                        </div>
+                        <span onclick="location.href='/user/<?php echo $val['user']['uid'];?>'"><?php echo $val['user']['nick_name'];?></span>
+                    </li>
+                    <li class="ds_right right"><span class="number">打赏<?php echo $val['value'];?></span><span class="time"><?php echo Common::show_time($val['add_time']);?></span></li>
+                </div>
+            <?php }?>
+            <?php if($rewardList['size']>3) {?>
+                <p class="ds_jilu"><a href="/myreward/id/<?php echo $obj_id;?>/type/4&token=<?php echo $token;?>">查看全部<?php echo $rewardList['size'];?>条打赏记录<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+            <?php }?>
+        </div>
+    </div>
+<?php }?>
+<script>
+    //监听打赏后触发请求局部刷新打赏
+    function refreshReward(){
+        $.ajax({
+            type:'post',
+            url:'/common/getRewardList',
+            data:{
+                type:<?php echo $type;?>,
+                obj_id:<?php echo $obj_id;?>,
+                token:'<?php echo $token;?>',
+                page:1,
+                size:4
+            },
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    $('.reward-list').html(data.data);
+                }else{
+                    if(data.status == 403) {
+                        backLogin();
+                    } else {
+                        tips(data.message);
+                    }
+                }
+            }
+        });
+    }
+</script>

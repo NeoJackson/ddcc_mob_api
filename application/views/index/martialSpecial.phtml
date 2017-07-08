@@ -1,0 +1,37 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body style="background-color:#f9f9f9;">
+<!--toptar  ed-->
+<div class="top_banner" id="pic"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img1.jpg"></div>
+<div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img2.jpg"></div>
+<?php if(isset($martialSpecialList) && $martialSpecialList) {
+    foreach($martialSpecialList as $key => $val) {?>
+        <?php if($key==0){?>
+            <div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img3.jpg"></div>
+        <?php }elseif($key==1){?>
+            <div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img4.jpg"></div>
+        <?php }elseif($key==2){?>
+            <div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img5.jpg"></div>
+        <?php }elseif($key==3){?>
+            <div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img6.jpg"></div>
+        <?php }?>
+        <div class="martialArt_box">
+            <div class="title"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-title.png"></div>
+            <div class="pl_message">
+                <div class="mes_top">
+                    <p class="mes_bg"> <img src="<?php echo Common::show_img($val['cover'],2,300,300);?>">
+                        <!--10%透明度黑色遮罩层-->
+                        <span class="ceng88"></span></p>
+                    <p class="mes_photo"><a href="/yizhan/sid/<?php echo $val['sid'];?>"><img src="<?php echo Common::show_img($val['icon'],2,100,100);?>"></a></p>
+                </div>
+                <p class="mes_name"><a href="/yizhan/sid/<?php echo $val['sid'];?>"><?php echo $val['name'];?></a></p>
+                <p class="mes_fensi">成员:<?php echo $val['user_num'];?>&nbsp;&nbsp;&nbsp;&nbsp;帖子:<?php echo $val['topic_num'];?></p>
+                <p class="martialArt_p ellipsis"><?php echo $val['intro'];?></p>
+                <a href="/yizhan/sid/<?php echo $val['sid'];?>" class="mes_guanzhu">进入驿站</a>
+            </div>
+        </div>
+    <?php }?>
+<?php }?>
+<div class="martialArt_img"><img src="<?php echo STATIC_DOMAIN;?>/images/special/martial-img7.jpg"></div>
+<!--bottom ed-->
+</body>
+</html>

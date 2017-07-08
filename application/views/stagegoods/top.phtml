@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?php if(isset($page_title)){echo $page_title;}?></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/style.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/topic_base.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkService.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkGoods.css?v=<?php echo STATIC_FILE_VERSION;?>">
+     <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/to-top.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <script src="<?php echo STATIC_DOMAIN;?>/js/jquery.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/lib/artDialog.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/common.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/operation_new.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/page/to-top.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/checkGoods.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/scrollfix.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/scroll.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+    <script>
+        window.$userInfo = <?php if(isset($user)){echo json_encode($user);}else{echo json_encode(array());}?>;
+    </script>
+    <style>
+        html{position:relative;height:100%;height:100%;overflow: hidden}
+        body{position:absolute;left:0;top:0;width:100%;height:100%;z-index: -1;overflow: hidden;}
+        .scroll{position:absolute;left:0;top:0;width:100%;height:100%;overflow-y:scroll;-webkit-box-flex: 1;-webkit-overflow-scrolling: touch;}
+        .header{position:fixed;left:0;top:0;z-index:9999;width:100%;}
+        .header .bor{width:40px;height:40px;}
+        .header .bor img{width:100%;}
+        .header .bor a{color:#fff;}
+        .header .one{float: left;}
+        .header .one a{font-size:18px;}
+        .header .two{float: right;}
+        .header .two a{font-size:22px;}
+        .header .there{float: right;margin-right:8px;}
+        .header .there a{font-size:22px;}
+        .mc-auto{width:96%;margin:auto;overflow: hidden;margin-top:30px;padding-bottom:4px;}
+        .head-img{position: relative;z-index:9998;}
+        .hide{overflow: hidden;}
+        #mc-img{width:100%;}
+        .imgfix{position:fixed;left:auto;top:0;margin: auto;}
+    </style>
+</head>
+<body>
+<?php if($version>='3.5'){?>
+    <div class="header" id="head-nav">
+        <div class="mc-auto">
+            <div class="bor one">
+                <a href="/fanhui" class="icon iconfont" id="mc-num">
+                    <img src="<?php echo STATIC_DOMAIN?>/images/checkGoods/back.png">
+                </a>
+            </div>
+            <div class="bor two">
+                <a href="/fenxiang/id/<?php echo $goodsInfo['id']?>" class="icon iconfont"  id="mc-num02">
+                    <img src="<?php echo STATIC_DOMAIN?>/images/checkGoods/share.png">
+                </a>
+            </div>
+            <?php if(isset($user) &&($is_join['role'] == 1)){?>
+                <div class="bor there">
+                    <a href="javascript:void(0);" class="icon iconfont edit-d"  id="mc-num03">
+                        <img src="<?php echo STATIC_DOMAIN?>/images/checkGoods/edit.png">
+                    </a>
+                </div>
+            <?php }?>
+        </div>
+    </div>
+<?php }?>
+<div class="scroll" id="scroll">
+    <div class="head-img" id="head-img" style="margin-top: 0px;">
+        <img id="mc-img" src="<?php echo IMG_DOMAIN.$goodsInfo['cover'];?>">
+    </div>
+<div class="page activity">
+    <!--
+    <div class="header change-head half-bor-bottom">
+        <a href="/fanhui" class="back-d">
+        </a>
+        <a href="/fenxiang" class="share-d">
+        </a>
+    <?php if(isset($user) &&($is_join['role'] == 1)){?>
+        <a href="javascript:void(0);" class="edit-d">
+        </a>
+        <?php }?>
+    </div>
+-->
+
+
+    <div class="con">
+        <p class="tit title mt10">
+            <?php if( 1 == $goodsInfo['is_top'] ){ ?>
+                <span class="pic-d">置顶</span>
+            <?php }?>
+            <?php if( 1 == $goodsInfo['is_good'] ){ ?>
+                <span class="pic-j">精</span>
+            <?php }?>
+            <?php echo $goodsInfo['name'];?>
+        </p>
+        <div>
+            <?php if($goodsInfo['type']==1){?>
+            <p class="item-price half-bor-bottom"><b>¥&nbsp;<?php echo $goodsInfo['price'];?></b><span class="place"><?php echo $goodsInfo['address_name'];?></span></p>
+            <?php }elseif($goodsInfo['type']==3){?>
+            <p class="item-price"><b><i class="lucks"></i>&nbsp;<?php echo $goodsInfo['score'];?></b><span class="place"><?php echo $goodsInfo['address_name'];?></span></p>
+            <?php }elseif($goodsInfo['type']==2){?>
+            <p class="item-price"><b><i class="lucks"></i>&nbsp;<?php echo $goodsInfo['score'];?></b><span class="place"><?php echo $goodsInfo['address_name'];?></span>&nbsp;+&nbsp;<b>¥&nbsp;<?php echo $goodsInfo['price'];?></b></p>
+            <?php }?>
+            <?php if(isset($user) &&($is_join['role'] == 1 ||$goodsInfo['uid'] == $user['uid'])){?>
+                <!-- <a class="right-btn" id="ope-top">
+                        <i class="font-ico down-ico"></i>
+                    </a>-->
+
+                <div class="pop" id="topic-ope">
+                <ul>
+                <?php if(($goodsInfo['uid'] == $user['uid'])){  ?>
+                    <li id="del-topic" class="half-bor-bottom" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>">删除</li>
+                <?php }?>
+                <?php if ($is_join['role'] == 1 || $is_join['role'] == 2){ ?>
+                    <?php if($goodsInfo['is_top']==1){ ?>
+                        <li data-type="1" class="cancel-top half-bor-bottom"data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>">取消置顶</li>
+                    <?php }else{ ?>
+                        <li data-type="1" class="tops half-bor-bottom"data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>">置顶</li>
+                    <?php } ?>
+                    <?php if($goodsInfo['is_good']==1){ ?>
+                        <li data-type="2" class="cancel-top half-bor-bottom"data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>">取消加精</li>
+                    <?php }else{ ?>
+                        <li data-type="2" class="tops half-bor-bottom"data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>">加精</li>
+                    <?php } ?>
+
+                    <li class="cancle">取消</li>
+                    </ul>
+                    </div>
+                <?php }}?>
+        </div>
+    </div>
+    <div class="stater">
+        <div class="user">
+            <a href="/yizhan/sid/<?php echo $goodsInfo['sid'];?>">
+                <img src="<?php echo IMG_DOMAIN.$stageInfo['icon'];?>">
+            </a>
+        </div>
+        <div class="club">
+            <h3><a href='/yizhan/sid/<?php echo $goodsInfo['sid'];?>'><?php echo $stageInfo['name'];?></a></h3>
+            <p>驿长: <span><?php echo $stageUser['nick_name'];?></span></p>
+        </div>
+        <div class="call">
+
+             <a href="/tell/13012888193"> <img src="<?php echo STATIC_DOMAIN;?>/images/checkService/call.png" alt=""><span class="fz13">联系客服</span></a>
+        </div>
+    </div>
+    <div class="m-bottom"></div>
+    <div class="con">
+        <div class="action ">
+            <p class="at half-bor-bottom"><a href="javascript:void(0);"class="on">商品详情</a></p>
+            <div class="content-area">
+                <p><?php echo $goodsInfo['intro'];?></p>
+                <p>本文的所有图、文等著作权及所有权归原作者所有。</p>
+            </div>
+            <?php if(isset($user)&&$goodsInfo['uid'] != $user['uid']){ ?>
+                <p class="report" onclick="location.href='/jubao/type/14/id/<?php echo $goodsInfo['id'];?>'">举报</p>
+            <?php }?>
+        </div>
+    </div>
+    <div class="m-bottom"></div>
+    <div class="con">
+        <?php if($hotGoods){?>
+        <div class="activities">
+            <h2>热门商品</h2>
+            <?php foreach($hotGoods as $v){?>
+            <div class="wonder layout-box">
+                <div class="img"><a href='<?php echo $v['url'];?>'><img src="<?php echo IMG_DOMAIN.$v['cover'];?>" alt=""></a></div>
+                <div class="info son-box">
+                    <div class="f1">
+                        <p class="p1 txt-cut"><a href='<?php echo $v['url'];?>'><?php echo $v['name'];?></a></p>
+                        <p class="p2 fz12"><i class="state"></i><?php echo $v['stage_name'];?></p>
+                        <p class="p3 fz12"><i class="address"></i><?php echo $v['address_name'];?></p>
+                    </div>
+                    <p class="p4 fz13">
+                        <?php if($v['type']==1){?>
+                        ¥ <span><?php echo $v['price'];?></span>
+                        <?php }elseif($v['type']==2){?>
+                        <i class="luck"></i><span><?php echo $v['score'];?></span>+¥ <span><?php echo $v['price'];?></span>
+                        <?php }else{?>
+                        <i class="luck"></i><span><?php echo $v['score'];?></span>
+                        <?php }?>
+                        <span class="read reads"><b></b><?php echo $v['view_num'];?></span>
+                    </p>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+        <?php if($version>='3.5'){?>
+        <div class="more" onclick="location.href='/goodsMore'">查看更多</div>
+        <?php }?>
+        <?php }?>
+        <div class="shop">
+            <p><b></b> <span>才府服务保障  </span> <b></b></p>
+        </div>
+
+    </div>
+    <div class="contact">
+        <a href="<?php echo I_DOMAIN?>/common/service?version=<?php echo $version?>">
+            <p><img src="<?php echo STATIC_DOMAIN;?>/images/checkGoods/doorer.png" alt=""></p>
+            <p>才府小管家</p>
+        </a>
+        <a href="<?php echo I_DOMAIN?>/common/service?version=<?php echo $version?>">
+            <p><img src="<?php echo STATIC_DOMAIN;?>/images/checkGoods/quality.png" alt=""></p>
+            <p>质量审核</p>
+        </a>
+    </div>
+    </div>
+</div>
+    <div class="footers half-bor-top">
+        <?php if(isset($user)&&$user['uid']!=$goodsInfo['uid']){?>
+            <a href="/chat/user/<?php echo $goodsInfo['uid'];?>" class="f-chat"   style="width: 49%;text-align: center;">
+                <img src="<?php echo STATIC_DOMAIN;?>/images/checkGoods/chat.png" alt=""> 在线咨询
+            </a>
+        <?php }else{?>
+            <!--变灰class：gray-->
+            <a href="javascript:void(0);" class="gray f-chat" id="mc-zx"  style="width: 49%;text-align: center;">
+                <!--变灰图标 class：chat-g-icon-->
+                <i class="chat-g-icon" ></i>在线咨询
+            </a>
+        <?php }?>
+        <?php if($goodsInfo['stock_num']>0){?>
+            <?php if($goodsInfo['start_type']==1){?>
+                <a href="javascript:void(0);"class="blues"  style="width: 49%;text-align: center;">
+                    <div style="width:100%;height:20px;line-height:20px;position: absolute;left:0;top:2px;text-align: center;">待售</div>
+                    <div style="width:100%;height:20px;line-height:20px;position: absolute;left:0;top:22px;text-align: center;"><?php echo date("Y-m-d H:i",strtotime($goodsInfo['start_time']));;?>开售</div>
+                </a>
+            <?php }elseif($goodsInfo['start_type']==2){?>
+                <a href="/goumai/id/<?php echo $goodsInfo['id'];?>"class="blues"  style="width: 49%;text-align: center;">
+                    <b></b><span style="margin-left:4px;">购买</span>
+                </a>
+            <?php }elseif($goodsInfo['start_type']==3||$goodsInfo['start_type']==4){?>
+                <a href="javascript:void(0);"class="blues gray-b"  style="width: 49%;text-align: center;">
+                    <b></b><span style="margin-left:4px;">已下架</span>
+                </a>
+            <?php }?>
+        <?php }else{?>
+            <a href="javascript:void(0);"class="blues gray-b" style="width: 49%;text-align: center;">
+                <b></b><span style="margin-left:4px;">已售完</span>
+            </a>
+        <?php }?>
+    </div>
+    <!--<div class="mask"></div>-->
+</body>
+</html>

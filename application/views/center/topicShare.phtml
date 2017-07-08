@@ -1,0 +1,35 @@
+<section>
+    <div class="top-user-text">
+        <?php include VIEWS_PATH."/center/userName.phtml";?>
+        <span class="gray">分享了帖子</span>
+    </div>
+    <div class="">
+        <p><?php echo $val['content']?></p>
+        <div class="internal-box">
+            <div class="inner">
+                <?php if(isset($val['share_data']) && $val['share_data']){?>
+                    <div class="" onclick="event.stopPropagation();location.href='/t/<?php echo $val['share_data']['id'];?>?token='+token">
+                        <p><a class="blue" href="/user/<?php echo $val['share_data']['user']['uid'];?>"><?php echo $val['share_data']['user']['nick_name'];?>:&nbsp;</a><?php echo $val['share_data']['title'];?></p>
+                        <div class="content-detail">
+                            <?php echo $val['share_data']['summary'];?><?php if($val['share_data']['is_read']==1){?><span class="blue">全文</span><?php }?>
+                        </div>
+                        <?php if(isset($val['share_data']['img_src']) && $val['share_data']['img_src']){?>
+                            <div class="topic-pic">
+                                <ul class="list-ul">
+                                    <?php foreach($val['share_data']['img_src'] as $key_topic_s=>$val_topic_s){
+                                        if($key_topic_s<3){?>
+                                            <li><img onclick="imgPopup(this)" data-imgsrc="<?php echo Common::show_img($val_topic_s,5);?>" data-src="<?php echo Common::show_img($val_topic_s,5,200,200,1);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)"></li>
+                                        <?php }
+                                    }?>
+                                </ul>
+                            </div>
+                        <?php }?>
+                        <p class="gray from">来自<a class="blue" href="/s/<?php echo $val['share_data']['stage']['sid'];?>?token=<?php echo $token;?>">&nbsp;<?php echo $val['share_data']['stage']['name'];?>&nbsp;</a>的驿站</p>
+                    </div>
+                <?php }else{?>
+                    抱歉，此内容已被作者删除。
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,22 @@
+<?php if($partake['list']){?>
+<div class="sign-up-box rewards-box layout-box">
+    <div class="son-box">
+        <i class="sign-ico blue"></i>
+        <div class="rewards-ls">
+            <?php foreach($partake['list'] as $val){?>
+                <a class="gary" href="/user/<?php echo $val['uid'];?>"><i><img src="<?php echo Common::show_img($val['user_info']['avatar'],1,60,60)?>"></i>
+            <?php if($version >= '2.3'){?>
+                    <i class="<?php echo $val['user_info']['ico_type'];?>"></i>
+            <?php }?>
+                </a>
+            <?php }?>
+            <?php if($partake['size']>count($partake['list'])) {echo '<span>等'.$partake['size'].'人参与</span>';}?>
+        </div>
+    </div>
+    <?php if($partake['size']>count($partake['list'])) {?>
+            <div class="right-btn" onclick="location.href='/mypartake/id/<?php echo $eventInfo['id'];?>/type/<?php echo $eventInfo['type'];?>&token='+token">
+            <a class="font-ico right-ico"></a>
+        </div>
+    <?php }?>
+</div>
+<?php }?>

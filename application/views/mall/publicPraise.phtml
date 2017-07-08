@@ -1,0 +1,47 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="header_top" id="head-nav">
+    <div class="tiezi_toptar" style="border-bottom-color: rgba(217, 217, 217, 0); background: rgba(255, 255, 255, 0);">
+        <ul>
+            <li class="tb_btn btn1">
+                <a href="/fanhui" id="mc-back" class="top-back"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+    <div class="list_box">
+        <div class="top_banner"><img src="<?php echo STATIC_DOMAIN;?>/images/mall/list-banner.jpg"></div>
+        <div class="list_introduce">
+            <p class="title">口碑清单</p>
+            <p class="content">人世的风景无法缺少绵密的感情，<br>
+                每件手工作品都倾注了手艺人的感情，<br>
+                精品荟萃，方能有口皆碑。
+            </p>
+        </div>
+        <div class="line_box"></div>
+        <div class="more_product list_product clearfix">
+            <?php foreach($goods_list as $v){?>
+            <div class="box">
+                <p class="pro_img" onclick="location='<?php echo $v['url'];?>'"><img src="<?php echo IMG_DOMAIN.$v['cover'];?>"></p>
+                <p class="pro_title" onclick="location='<?php echo $v['url'];?>'"><?php echo $v['name'];?></p>
+                <p class="pro_name"><img src="<?php echo STATIC_DOMAIN;?>/images/mall/fuwu-ico6.png"><?php echo $v['stage_name'];?></p>
+                <ul class="pro_price clearfix">
+                    <?php if($v['type']==1){?>
+                        <li class="price1">￥<?php echo $v['price'];?></li>
+                    <?php }elseif($v['type']==2){?>
+                        <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?>&nbsp;+￥<?php echo $v['price'];?></li>
+                    <?php }elseif($v['type']==3){?>
+                        <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?></li>
+                    <?php }?>
+                    <?php if($v['sell_num']>0){?>
+                        <li class="sales">销量 <?php echo $v['sell_num']?></li>
+                    <?php }?>
+                </ul>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

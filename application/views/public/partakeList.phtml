@@ -1,0 +1,22 @@
+<ul class="user-list">
+    <li class="layout-box  join">已有<i class="blue"><?php echo $partakeList['size'];?></i>人<?php if($eventInfo['price_type']==1){?>报名<?php }else{?>购买<?php }?></li>
+    <div class="regist-box">
+        <?php foreach($partakeList['list'] as $val){?>
+        <li class="layout-box mt10 half-bor-top">
+            <a href="/user/<?php echo $val['user_info']['uid'];?>">
+                <img class="avatar-35 mr10" src="<?php echo Common::show_img($val['user_info']['avatar'],1,200,200)?>" alt="">
+                <i class="<?php echo $val['user_info']['ico_type'];?>"></i>
+            </a>
+            <span class="son-box partake-user-name">
+                <a class="partake-user-name" href="/user/<?php echo $val['uid'];?>"><?php echo $val['user_info']['nick_name'];?></a>
+            </span>
+            <span class="time"><?php echo $val['add_time'];?></span>
+        </li>
+        <?php }?>
+    </div>
+    <?php if($partakeList['size']>10){?>
+        <li class="layout-box blue half-bor-top" id="regist_more" data-id = '<?php echo $eventInfo['id'];?>' data-pricetype='<?php echo $eventInfo['price_type'];?>' data-total = '<?php echo $partakeList['size'];?>'>
+            展开更多<i class="down-top"></i>
+        </li>
+    <?php }?>
+</ul>

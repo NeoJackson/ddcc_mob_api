@@ -1,0 +1,43 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="header_top" id="head-nav">
+    <div class="tiezi_toptar" style="border-bottom-color: rgba(217, 217, 217, 0); background: rgba(255, 255, 255, 0);">
+        <ul>
+            <li class="tb_btn btn1">
+                <a href="/fanhui" id="mc-back" class="top-back"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+    <div class="shop_content">
+        <div class="shop_banner"><img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-banner.jpg"> </div>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-img1.jpg" class="shop_img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-img2.jpg" class="shop_img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-img3.jpg" class="shop_img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-img4.jpg" class="shop_img">
+        <?php foreach($goods_list as $v){?>
+        <div class="shop_product">
+            <a href="<?php echo $v['url'];?>">
+            <img src="<?php echo Common::show_img(IMG_DOMAIN.$v['cover'],4,500,300);?>" class="shop_pro_img">
+            </a>
+            <p class="shop_pro_tit"><?php echo $v['name'];?></p>
+            <ul class="shop_pro_bottom clearfix">
+                <li class="price">
+                    <?php if($v['type']==1){?>
+                    <span>￥</span><?php echo $v['price'];?>
+                    <?php }elseif($v['type']==2){?>
+                    <span><i class="pr1_blessing"></i></span><?php echo $v['score'];?> + <span>￥</span><?php echo $v['price'];?>
+                    <?php }elseif($v['type']==3){?>
+                    <span><i class="pr1_blessing"></i></span><?php echo $v['score'];?>
+                    <?php }?>
+                </li>
+                <li class="buy"><a href="<?php echo $v['url']?>">立即购买</a></li>
+            </ul>
+        </div>
+        <?php }?>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/mall/shop-bottom.jpg" class="shop_img">
+    </div>
+</div>
+</body>
+</html>

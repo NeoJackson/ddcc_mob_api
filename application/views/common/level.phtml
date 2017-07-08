@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/stage.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/account.css" type="text/css" rel="stylesheet">
+    <title>我的等级</title>
+</head>
+<body>
+<div class="content">
+
+    <!--注册登录按钮 -->
+    <div class="account-nav-box user-data-box">
+        <div class="layout-box">
+            <div class="left-pic">
+                <img src="<?php echo Common::show_img($user['avatar'],1,100,100);?>" width="50" height="50">
+                <i class="<?php echo $user['ico_type'];?>"></i>
+            </div>
+            <div class="son-box">
+                <p class="name"><?php echo $user['nick_name'];?></p>
+                <p class="text-small">文品:&nbsp;<span class="blue"><?php echo $exp_info['level_name'];?></span></p>
+                <p class="text-small">当前等级:&nbsp;<span class="blue"><?php echo $exp_info['level_id'];?></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-box">
+        <div class="fl">活跃天数:<span class="blue"><?php echo $active_days;?></span></div>
+        <div class="fr">距离下一级别:<span class="blue"><?php if($exp_info['next_difference_exp']){echo $exp_info['next_difference_exp'];}else{echo"最高级";}?></span>经验值</div>
+        <div class="clr"></div>
+        <div class="order-bar">
+            <div class="inner" style="width: <?php echo $exp_info['exp_percent'].'%'?>"></div>
+        </div>
+        <div class="bottom over-hide">
+            <div class="fl"><span class="blue"><?php echo $exp_info['level_id'];?>级</span><span class="text-small gray"><?php echo $exp_info['prev_exp'];?>经验值</span></div>
+            <?php if($exp_info['next_difference_exp']){?>
+                <div class="fr"><span class="text-small gray"><?php echo $exp_info['next_exp'];?>经验值</span><span class="blue"><?php echo $exp_info['level_id']+1;?>级</span></div>
+            <?php }?>
+        </div>
+    </div>
+
+    <div class="order-rule text-center">
+        <div class="tit text-center">等级规则</div>
+        <div class="table">
+            <div class="tr color">
+                <span>等级</span><span>文品</span><span>经验值</span>
+            </div>
+            <div class="tr">
+                <span>1</span><span>正品初级</span><span>0</span>
+            </div>
+            <div class="tr">
+                <span>2</span><span>正品中级</span><span>100</span>
+            </div>
+            <div class="tr">
+                <span>3</span><span>正品高级</span><span>300</span>
+            </div>
+            <div class="tr">
+                <span>4</span><span>尚品初级</span><span>900</span>
+            </div>
+            <div class="tr">
+                <span>5</span><span>尚品中级</span><span>2700</span>
+            </div>
+            <div class="tr">
+                <span>6</span><span>尚品高级</span><span>8100</span>
+            </div>
+            <div class="tr">
+                <span>7</span><span>尊品初级</span><span>24300</span>
+            </div>
+            <div class="tr">
+                <span>8</span><span>尊品中级</span><span>72900</span>
+            </div>
+            <div class="tr">
+                <span>9</span><span>尊品高级</span><span>218700+</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+<script >
+</script>
+</body>
+</html>

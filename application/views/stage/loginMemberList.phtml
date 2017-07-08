@@ -1,0 +1,31 @@
+
+<div class="fans-list">
+    <?php if(isset($user_list) && $user_list){?>
+        <?php foreach($user_list as $key=>$val){?>
+            <div class="fans-part layout-box active-e half-bor-bottom">
+                <a class="user-pic fl d-block">
+                    <img class="b-radius-3" data-src="" src="<?php echo Common::show_img($val['avatar'],1,120,120);?>" width="60" height="60">
+            <?php if($version >= '2.3'){?>
+                    <i class="<?php echo $val['ico_type'];?>"></i>
+                <?php }?>
+                </a>
+                <div class="son-box user-info">
+                    <p><a class="font-18 blue"><?php echo $val['nick_name'];?><i class="<?php if($val['sex']==1){?>men<?php }else{?>women<?php }?> font-ico"></i></a></p>
+                    <p class="gray txt-cut text-small pad"><?php echo $val['intro'];?></p>
+                    <p class="gray text-small"><span>关注:<?php echo $val['att_num'];?></span><span>粉丝:<?php echo $val['fans_num'];?></span></p>
+                </div>
+                <div class="right-btn">
+                    <?php if($val['relation']==1){?>
+                        <div class="fans-btn font-ico focus-btn"><i></i>已关注</div>
+                    <?php }elseif($val['relation']==2){?>
+                        <div class="fans-btn font-ico friend-btn"><i></i>知己</div>
+                    <?php }else{?>
+                        <?php if(isset($user) && $val['uid'] == $user['uid']){?>
+                        <?php }else{?>
+                            <div class="fans-btn add-btn" data-uid="<?php echo $val['uid'];?>"><i></i>关注</div>
+                        <?php }?>
+                    <?php }?>
+                </div>
+            </div>
+        <?php }}?>
+</div>

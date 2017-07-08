@@ -1,0 +1,40 @@
+<?php if($rewardList['size']>0) {?>
+    <nav class="member">
+        <a href=""><img src="<?php echo STATIC_DOMAIN;?>/images/checkService/lucker.png"></a>
+        <?php foreach($rewardList['list'] as $k => $v) {?>
+            <a href="/user/<?php echo $v['user']['uid'];?>"><img src="<?php echo Common::show_img($v['user']['avatar'],1,70,70);?>"><i class="<?php echo $v['user']['ico_type'];?>"></i><span><?php echo $v['value'];?></span></a>
+        <?php }?>
+        <?php if($rewardList['size']>4){?>
+            <a href="/myreward/id/<?php echo $topicInfo['id'];?>/type/4&token=<?php echo $token;?>"><img src="<?php echo STATIC_DOMAIN;?>/images/checkService/more.png"></a>
+        <?php }?>
+        <p><span><?php echo $rewardList['size'];?></span>人<br>已打赏</p>
+    </nav>
+<?php }?>
+<script>
+//监听打赏后触发请求局部刷新打赏
+    function refreshReward(){
+        $.ajax({
+            type:'post',
+            url:'/common/getRewardList',
+            data:{
+                type:<?php echo $type;?>,
+                obj_id:<?php echo $obj_id;?>,
+                token:'<?php echo $token;?>',
+                page:1,
+                size:4
+            },
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    $('.reward-list').html(data.data);
+                }else{
+                    if(data.status == 403) {
+                        backLogin();
+                    } else {
+                        tips(data.message);
+                    }
+                }
+            }
+        });
+    }
+</script>

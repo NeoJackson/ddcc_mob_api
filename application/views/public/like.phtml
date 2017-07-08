@@ -1,0 +1,21 @@
+<?php if(isset($token)){?>
+<p><?php echo $token;?></p>
+<?php }?>
+<?php if($likeList['list']){?>
+<div class="praise-box rewards-box layout-box">
+    <div class="son-box">
+        <i class="praise-ico font-ico"></i>
+        <div class="rewards-ls like_list">
+            <?php foreach($likeList['list'] as $key => $val){?>
+               <?php if($key!=0){ echo '、';}?><?php echo $val['nick_name'];?>
+            <?php }?>
+            <?php if($likeList['size']>count($likeList['list'])) {echo '<span>等'.$likeList['size'].'人次喜欢</span>';}?>
+        </div>
+    </div>
+    <?php if($likeList['size']>count($likeList['list'])) {?>
+        <div class="right-btn" onclick="location.href='/center/likeList?<?php if(isset($eventInfo)){echo 'type=10&obj_id='.$eventInfo['id'];} else if(isset($topicInfo)){echo 'type=4&obj_id='.$topicInfo['id'];}?>&token='+token">
+            <a class="font-ico right-ico"></a>
+        </div>
+    <?php }?>
+</div>
+<?php }?>

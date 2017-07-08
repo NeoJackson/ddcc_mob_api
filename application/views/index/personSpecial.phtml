@@ -1,0 +1,48 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body style="background-color:#f9f9f9;">
+<div class="top_banner"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-banner.jpg" id="pic"></div>
+<!--renwu_top  ed-->
+<div class="renwu_center">
+    <div class="rw_title">
+        <div class="tit"><span class="t_l">她的</span><span class="t_r">故事</span></div>
+        <div class="jiantou"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-jiantou.png"></div>
+    </div>
+    <div class="gushi_p">
+        <p>有的人生来就和古董有缘。</p>
+        <p>受父辈古董生意的影响，20岁的沈伟媛便踏入了收藏圈儿。</p>
+        <p>从父亲古董店里的金牌销售，到易贝上开设古董店的第一人，再到外国藏家圈里的著名藏家，不长不短，她用了7年。</p>
+        <p>在沈伟媛的家乡有刺绣的传统，有些喜欢的东西沈伟媛都收藏起来没有卖掉，日积月累，这些古董衣饰，俨然已经成为了一个庞大的收藏系统。</p>
+        <p>她去过大大小小二十几个国家，虽然旅途中难免会有奔波，但她却很享受这种满世界“淘宝”带来的精神世界的充实。</p>
+        <p>她相信，带着对未知的好奇与敬畏上路，总能满载而归</p>
+    </div>
+    <div class="rw_title">
+        <div class="tit"><span class="t_l">她的</span><span class="t_r">收藏</span></div>
+        <div class="jiantou"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-jiantou.png"></div>
+    </div>
+    <img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-img1.jpg" class="rw_img"> <img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-img2.jpg" class="rw_img"> <img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-img3.jpg" class="rw_img">
+    <div class="gushi_p">
+        <p> 翻看沈伟媛老师的心境，经常能够看到“传统”、“文化”、“工艺”、“匠心”等字眼。</p>
+        <p>她说：“只有经过时间沉淀的，才是最震撼人心的。中国古代的奢侈品和高级定制，是时候让我们把传统文化和工艺捡起来了。”</p>
+        <p>看到过她举办清代服饰藏品品鉴会的活动信息,她会与喜爱收藏的朋友们面对面交流，将自己多年来的收藏故事一一讲与众人。</p>
+    </div>
+    <div class="rw_title">
+        <div class="tit"><span class="t_l">她的</span><span class="t_r">主页</span></div>
+        <div class="jiantou"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-jiantou.png"></div>
+    </div>
+    <div class="rw_user">
+        <div class="rw1 angel_box">
+            <a href="/user/<?php echo $personSpecial['uid'];?>">
+                <img class="photo_special" src="<?php echo Common::show_img($personSpecial['avatar'],1,200,200);?>">
+                <i class="angel angel3 <?php echo $personSpecial['ico_type'];?>"></i>
+            </a>
+        </div>
+        <p class="rw2"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-btn1.png"><a href='/user/<?php echo $personSpecial['uid'];?>'><?php echo $personSpecial['nick_name'];?></a></p>
+        <p class="rw3">粉丝：<?php echo $personSpecial['fans_num'];?><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-btn2.png">关注：<?php echo $personSpecial['att_num'];?></p>
+        <p class="rw4"><a href="/user/<?php echo $personSpecial['uid'];?>">进入主页</a></p>
+    </div>
+</div>
+<!--renwu_center  ed-->
+<div class="kunqu_bottom"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-bottom.png"> </div>
+<!--renwu_bottom ed-->
+</body>
+</html>

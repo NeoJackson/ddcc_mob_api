@@ -1,0 +1,85 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="header">
+    <div class="tiezi_toptar">
+        <ul>
+            <li class="tb_btn btn1"><a href="/fanhui"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/top-btn1-1.png" id="img1"></a></li>
+            <li class="top_title">帖子</li>
+            <li class="tb_btn btn2" onclick="previewOperation()"><a><img src="<?php echo STATIC_DOMAIN;?>/images/topic/top-btn2-2.png" id="img2"></a></li>
+            <li class="tb_btn btn3" onclick="previewOperation()"><a><img src="<?php echo STATIC_DOMAIN;?>/images/topic/top-btn3-3.png" id="img3"></a></li>
+        </ul>
+    </div>
+</div>
+<!--tiezi_toptar  ed-->
+<div class="scroll" id="scroll">
+    <div class="tiezi_cotent">
+        <div class="tz_box tz_box1">
+            <p class="tz_tit">
+                <?php echo $topicInfo['title'];?></p>
+            <div class="tz_tit_xia"><span class="name" ><?php echo $topicInfo['nick_name'];?></span><?php echo Common::show_time($topicInfo['add_time']);?>&nbsp;[<?php if($topicInfo['type']==0){?>原创<?php }elseif($topicInfo['type']==1){?>转载<?php }else{?>才府独家<?php }?>]<span class="liulan"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn1.png"><?php echo $topicInfo['view_num']?></span> </div>
+        </div>
+        <!--标题  ed-->
+        <div class="tz_box tz_box2" style="border: none">
+            <div class="tz_p">
+                <?php echo str_replace("\n","<br>",$topicInfo['content']);?>
+            </div>
+            <p class="tz_ban">本文的所有图、文等著作权及所有权归原作者所有<a>举报</a></p>
+            <!-- 喜欢列表 -->
+            <div class="tz_zan">
+                <div class="tz_zan_s">
+                    <a>
+                        <span id="like_status" class= "zan_gray" onclick="previewOperation()"></span>
+                        <p class="like"><span id="like_num">0人</span>喜欢</p>
+                    </a>
+                </div>
+                <p class="tz_zan_no">您的喜欢是对我最大的鼓励</p>
+                <div class="like_user_more">
+                    <?php include_once VIEWS_PATH . "/center/likeUserList.phtml";?>
+                </div>
+            </div>
+            <!-- 喜欢列表end -->
+        </div>
+        <!--详情介绍  ed-->
+        <div class="tz_box tz_box4">
+            <div class="tz_box_title clearfix">
+                <li class="x1"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn7.jpg"></li>
+                <li class="x2">评论</li>
+                <li class="x1"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn7.jpg"></li>
+            </div>
+            <div class="tz_pinglun">
+                <div class="pl_message">
+                    <div class="mes_top">
+                        <p class="mes_bg">
+                            </p>
+                        <p class="mes_photo">
+                            <img src="<?php echo Common::show_img($topicInfo['avatar'],1,160,160)?>">
+                            <i class="angel2 <?php echo $topicInfo['ico_type'];?>"></i>
+                        </p>
+                    </div>
+                    <p class="mes_name"><?php echo $topicInfo['nick_name'];?></p>
+                    <p class="mes_fensi"></p>
+                    <a class="mes_guanzhu">进入主页</a>
+                </div>
+            </div>
+        </div>
+        <!--记录 ed-->
+    </div>
+</div>
+<!--tiezi_content  ed -->
+<div class="footers">
+    <div class="tiezi_bottom clearfix">
+        <ul>
+            <li class="bbtn1" onclick="previewOperation()"><a><span class="bottom_ico bottom_ico_rewrad"></span>打赏</a></li>
+            <li class="bbtn2" onclick="previewOperation()" id="like_li_status"><a id="like_a_status"><span class="bottom_ico bottom_ico_like"></span>收藏</a></li>
+            <li class="bbtn3" onclick="previewOperation()"><a><span class="bottom_ico bottom_ico_post"></span>驿站</a></li>
+            <li class="bbtn4" onclick="previewOperation()"><a>我要评论</a></li>
+        </ul>
+    </div>
+</div>
+<!--tiezi_bottom  ed-->
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+</script>
+</body>
+</html>

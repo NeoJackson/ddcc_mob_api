@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>分享有奖介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="<?php echo STATIC_DOMAIN?>/css/sharePrizes.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN?>/js/jquery.js"></script>
+    <script src="<?php echo STATIC_DOMAIN?>/js/scrollfix.js"></script>
+    <script>
+        var scrollable = document.getElementById("scroll");
+        new ScrollFix(scrollable);
+    </script>
+
+</head>
+
+<body style="margin: 0 ;padding: 0">
+<div class="scroll-m" id="scroll">
+    <div class="banner">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/banner-m.jpg">
+    </div>
+    <div class="peo-title">
+        您在才府开通服务驿站后，以下行为可以让钱袋饱满起来哦！
+    </div>
+    <div class="share-con">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/p-con.jpg">
+    </div>
+    <div class="share-con">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/share-ico.jpg">
+    </div>
+    <div class="peo-title1">
+        分享优质的驿站、商品、活动，可获得奖金哦
+    </div>
+    <div class="share-main">
+        <div class="share-main-con">
+            <p class="x-btn">我知道了</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+   $(".x-btn").click(function(){
+       location.href="/success"
+   })
+</script>

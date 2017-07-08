@@ -1,0 +1,15 @@
+<?php if($like_list['size']>0){?>
+<nav class="member member-l">
+    <i class="recommend-icon fz25"></i>
+    <?php foreach($like_list['list'] as $key_s=>$val_s){?>
+        <a href="/user/<?php echo $val_s['uid'];?>"><img src="<?php echo Common::show_img($val_s['avatar'],1,200,200);?>"><i class="<?php echo $val_s['ico_type']?>"></i></a>
+    <?php }?>
+    <?php if($like_list['size']>6){?>
+        <a href="/mylike/id/<?php echo $like_list['id'];?>/type/<?php echo $like_list['feed_type'];?>&token=<?php echo $token;?>"><img src="<?php echo STATIC_DOMAIN;?>/images/checkGoods/more-l.png"></a>
+    <?php }?>
+    <?php }?>
+    <?php if($like_list['size']>0){?>
+    <span><?php echo $like_list['size']?>人喜欢</span>
+</nav>
+<?php }?>
+

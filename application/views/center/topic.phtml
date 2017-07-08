@@ -1,0 +1,27 @@
+<section>
+    <?php if(isset($val['is_recommend']) && $val['is_recommend']) {?>
+    <div class="rec-box">荐</div>
+    <?php }?>
+    <div class="top-user-text">
+        <?php include VIEWS_PATH."/center/userName.phtml";?>
+        <span class="gray">发表了帖子</span>
+    </div>
+    <div class="" onclick="location.href='/t/<?php echo $val['id'];?>?token='+token">
+        <p><?php echo $val['title'];?></p>
+        <div class="content-detail">
+            <?php echo $val['summary'];?><?php if($val['is_read']==1){?><span class="blue">全文</span><?php }?>
+        </div>
+        <?php if(isset($val['img_src']) && $val['img_src']){?>
+            <div class="topic-pic">
+                <ul class="list-ul">
+                    <?php foreach($val['img_src'] as $key_topic=>$val_topic){
+                        if($key_topic<3){?>
+                            <li><img onclick="imgPopup(this)" data-imgsrc="<?php echo Common::show_img($val_topic,5);?>" data-src="<?php echo Common::show_img($val_topic,5,180,180,1);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)"></li>
+                        <?php }
+                    }?>
+                </ul>
+            </div>
+        <?php }?>
+        <p class="gray from">来自<a class="blue" href="/s/<?php echo $val['stage']['sid'];?>?token=<?php echo $token;?>">&nbsp;<?php echo $val['stage']['name'];?>&nbsp;</a>的驿站</p>
+    </div>
+</section>

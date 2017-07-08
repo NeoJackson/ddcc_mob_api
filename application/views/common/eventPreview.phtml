@@ -1,0 +1,144 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/jquery.modal.dialog.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+<body>
+<div class="header_top" id="head-nav">
+    <div class="tiezi_toptar" style="border-bottom-color: rgba(217, 217, 217, 0); background: rgba(255, 255, 255, 0);">
+        <ul>
+            <li class="tb_btn btn1">
+                <a href="/fanhui" id="mc-back" class="top-back"></a>
+            </li>
+            <li class="tb_btn btn2" onclick="previewOperation()">
+                <a id="mc-reset" class="top-reset"></a>
+            </li>
+            <li class="tb_btn btn3" onclick="previewOperation()">
+                <a id="mc-share" class="top-share"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+<!--toptar  ed-->
+<div class="top_banner" id="pic"><img src="<?php echo Common::show_img($eventInfo['cover']);?>"></div>
+<!--top_banner  ed-->
+<div class="tiezi_cotent fuwu_cotent">
+<div class="tz_box fuwu_box1">
+    <p class="tz_tit">
+        <span class="top_btn1 <?php echo $eventTypeClass[$eventInfo['type']]?>"><?php echo $eventInfo['type_name'];?></span><?php echo $eventInfo['title'];?>
+    </p>
+</div>
+<!--标题  ed-->
+<div class="fuwu_piao">
+    <div class="mes_box">
+        <ul>
+            <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico2.png"></span>
+            <?php foreach($eventInfo['priceInfoArr'] as $k=>$v){
+                if($k<3){?>
+                    <li><?php echo date('m-d H:i',strtotime($v['start_time'])); ?></span>   至  <span><?php echo date('m-d H:i',strtotime($v['end_time'])); ?></li>
+                <?php }
+            }?>
+            <span class="t_after"><a href="#showDiv" rel="dialog:open"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico9.png"></a></span>
+        </ul>
+    </div>
+    <div class="mes_box"> <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico3.png"></span>
+        <p class="address"><?php echo $eventInfo['event_address'] ?></p>
+        <span class="t_after"></span> </div>
+    <div class="mes_box mes_box2"> <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico4.png"></span>
+        <p class="price">
+            <?php if($eventInfo['price_type']==1){?>
+                免费
+            <?php }else{?>
+                <?php if($eventInfo['price_count']==1){?>
+                    <?php echo $eventInfo['min_price'];?>
+                <?php }else{?>
+                    <?php echo $eventInfo['min_price'];?>-<?php echo $eventInfo['max_price'];?>
+                <?php }
+            }?>
+            <?php if($eventInfo['agio_type']){?>
+                <span><?php if($eventInfo['agio_type']==1){?>满减<?php }else{?>折扣<?php }?></span>
+                <a class="link-icon link-icons" onclick="dialogue();"></a>
+            <?php }?>
+        </p>
+        <span class="t_after"><a href="#showDiv" rel="dialog:open"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico9.png"></a></span> </div>
+</div>
+<!--场次点击弹层全部列表-->
+    <div class="wrap" id="wrap" style="display: none;">
+        <div class="num-info" style="z-index: 9999;"> <a class="num-close">×</a>
+            <p class="pop_title"><i class="pop_title_left"></i>场次与价格<i class="pop_title_right"></i></p>
+            <?php if($eventInfo['agio_type']){?>
+                <p class="pop_subtitle">【<?php echo $eventInfo['agio_info'];?>】</p>
+            <?php }?>
+            <div class=" pop_box">
+                <?php foreach($eventInfo['priceInfoArr'] as $v){?>
+                    <p class="pop_box_title"><?php echo $v['show_time'];?></p>
+                    <ul class="pop_box_note clearfix">
+                        <?php foreach($v['price_info'] as $v1){?>
+                            <li class="clearfix"><span class="name"><?php echo $v1['price_mark'] ?$v1['price_mark'] :'票价'?></span><span class="price"><?php if($eventInfo['price_type']==1){?>免费<?php }else{?>￥<?php echo $v1['price']?><?php }?></span></li>
+                        <?php }?>
+                    </ul>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+<!--场次点击弹层全部列表end-->
+<div class="tz_box tz_box2">
+    <div class="tz_p">
+        <?php echo str_replace("\n","<br>",$eventInfo['content']);?>
+    </div>
+    <p class="tz_ban">本文的所有图、文等著作权及所有权归原作者所有<a>举报</a></p>
+    <div class="tz_zan">
+        <div class="tz_zan_s">
+            <a>
+                <span onclick="previewOperation()" id="like_status" class= "zan_gray"></span>
+                <p class="like"><span id="like_num">0人</span>喜欢</p>
+            </a>
+        </div>
+        <p class="tz_zan_no">您的喜欢是对我最大的鼓励</p>
+    </div>
+</div>
+<!--报名记录  ed-->
+<div class="tz_box tz_box4">
+    <div class="tz_box_title clearfix">
+        <li class="x1"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn7.jpg"></li>
+        <li class="x2">评论</li>
+        <li class="x1"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn7.jpg"></li>
+    </div>
+    <div class="tz_pinglun">
+        <div class="pl_message">
+            <div class="mes_top">
+                <p class="mes_bg">
+                     </p>
+                <p class="mes_photo"><img src="<?php echo Common::show_img($eventInfo['stageInfo']['icon'],2,100,100);?>"></p>
+            </div>
+            <p class="mes_name"><?php echo $eventInfo['stageInfo']['name'];?></p>
+            <p class="mes_fensi"></p>
+            <ul class="fuwu_zhidian clearfix">
+                <li><a><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico5.png">致电客服</a></li>
+                <li class="fuwu_xian"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/zt-btn2.png"></li>
+                <li><a><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico6.png">进入驿站</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--评论 ed-->
+
+
+</div>
+</div>
+<!--tiezi_content  ed-->
+<div class="footers">
+    <div class="tiezi_bottom clearfix">
+        <ul>
+            <li class="bbtn1" onclick="previewOperation()"><a><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <li class="bbtn2" id="like_li_status" onclick="previewOperation()"><a id="like_a_status"><span class="bottom_ico bottom_ico_like"></span>收藏</a></li>
+            <li class="bbtn3" onclick="previewOperation()"><a><span class="bottom_ico bottom_ico_post"></span>驿站</a></li>
+            <li class="bbtn4" onclick="previewOperation()"><a>立即报名</a></li>
+        </ul>
+    </div>
+</div>
+<!--tiezi_bottom  ed-->
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+</script>
+</body>
+</html>

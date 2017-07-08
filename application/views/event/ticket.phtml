@@ -1,0 +1,27 @@
+<?php include_once VIEWS_PATH."/public/header.phtml";?>
+<body>
+<div class="content bg-white main_content" style="background: #efeff4;">
+
+    <div class="ticket-from">
+        <div class="active-tit"><i class="true-ico on"></i>报名成功！感谢您参与
+            <span class="blue" onclick="location.href='/e/<?php echo $activitycheck['id'];?>?token=<?php echo $token;?>&version=<?php echo $version;?>'"><?php echo Common::msubstr($activitycheck['title'],0,50,"utf-8");;?></span></div>
+
+        <div class="box">
+            <div class="ticket-top"></div>
+            <div class="con">
+                <p><i class="person"></i><?php echo $activitycheck['partake_name'];?></p>
+                <p><i class="time"></i><?php echo $activitycheck['start_time'];?></p>
+                <p><i class="map"></i><?php echo $activitycheck['event_address'];?></p>
+            </div>
+            <img src="/common/getQrCode?obj_id=<?php echo $activitycheck['id'];?>&p_uid=<?php echo $user['uid']?>&type=6" class="qr-img">
+            <p class="bot">票号:<?php echo $activitycheck['p_number'];?></p>
+            <p class="bot-b">现场验票时请出示</p>
+            <div class="ticket-bot"></div>
+        </div>
+    </div>
+
+
+</div>
+<div class="back-top" title="返回顶部"></div>
+</body>
+</html>

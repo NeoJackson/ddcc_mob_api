@@ -1,0 +1,98 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>分享有奖介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="<?php echo STATIC_DOMAIN?>/css/sharePrizes.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN?>/js/jquery.js"></script>
+    <script src="<?php echo STATIC_DOMAIN?>/js/scrollfix.js"></script>
+    <script>
+        var scrollable = document.getElementById("scroll");
+        new ScrollFix(scrollable);
+    </script>
+
+</head>
+
+<body style="margin: 0">
+<div class="scroll" id="scroll">
+    <div class="banner">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/banner.jpg">
+    </div>
+    <div class="peo-title">
+        <span class="left-ico"></span>
+        让“用户不停分享”帮您解决
+        <span class="right-ico"></span>
+    </div>
+    <div class="share-con">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/share.jpg">
+    </div>
+    <div class="peo-title1">
+        <span class="left-ico"></span>
+        “教您分享不停”怎么玩？
+        <span class="right-ico"></span>
+    </div>
+    <div class="share-con">
+        <img src="<?php echo STATIC_DOMAIN?>/images/sharePrizes/images/share1.jpg">
+    </div>
+    <div class="share-main">
+        <div class="share-main-con">
+            <h3>开通分享有奖协议</h3>
+            <p>开通分享有奖推广，让分享者帮您分享商品或活动，获得更多订单，推广者包含个人和企业；您只需为分享者成功售出的订单提供奖金，交易未成功，无需支付任何费用；自己推广自己的不统计在内；福报值商品不参与推广。</p>
+            <p class="x-con"><i id="agree" class="agree"></i>同意<span onclick="location.href='/common/sellerShareAgreement'">分享有奖协议</span></p>
+            <p class="x-btn" data-token="<?php echo $token;?>">同意</p>
+            <p class="share">开通分享有奖功能，并设置了有效的佣金比例后，在您的商品详情页面会增加<span></span>按钮</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $("#agree").click(function(){
+            var className=$("#agree").attr("class");
+            if(className=="agree"){
+                $("#agree").removeClass("agree").addClass("removeagree");
+                $(".x-btn").css("background","#aaaaaa");
+            }else {
+                $("#agree").removeClass("removeagree").addClass("agree");
+                $(".x-btn").css("background","#4386c7");
+            }
+
+        })
+        $(".x-btn").click(function(){
+            var token=$(".x-btn").data("token");
+            var className=$("#agree").attr("class");
+            if(className=="agree"){
+                $.ajax({
+                    type:'post',
+                    url:'/stage/spAgreement',
+                    data:{
+                        token:token
+                    },
+                    dataType:'json',
+                    success:function(data){
+                        if(data.status==1){
+                        location.href="/agree/success";
+                        }
+                    },
+                    error:function (data) {
+                        location.href="/agree/error";
+                    }
+
+                });
+            }
+
+        })
+
+    })
+</script>
+
+</body>
+</html>

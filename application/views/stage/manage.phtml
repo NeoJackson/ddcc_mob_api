@@ -1,0 +1,55 @@
+<?php include_once VIEWS_PATH."/public/header.phtml";?>
+<body style="background: #efeff4;">
+<div class="content">
+    <div class="con-center">
+        <div class="body-bac over-hide">
+
+            <div class="stage-user-pic layout-box active-e">
+                    <a class="img"><img src="<?php echo Common::show_img($stage['icon'],2,120,120);?>"/></a>
+                <div class="son-box">
+                    <p class="tit"><?php echo $stage['name'];?></p>
+                    <p class="text-small user-name" onclick="location.href='/stagemger/uid/<?php echo $stage['uid'];?>/nickname/<?php echo $stage['user']['nick_name'];?>'">驿长:<a class="blue"><?php echo $stage['user']['nick_name'];?></a></p>
+                    <p class="text-small gray">创建于:<?php echo $stage['add_time'];?></p>
+                </div>
+            </div>
+
+            <div class="stage-data">
+                <div class="bar-box layout-box active-e half-bor-bottom" <?php if($version>='2.0'){?>onclick="location.href='/chengyuan/id/<?php echo $stage['sid'];?>'"<?php }else{?>onclick="location.href='/stage/member?sid=<?php echo $stage['sid'];?>'"<?php }?>>
+                    <div class="label">成员:</div>
+                    <div class="middle son-box blue"><?php echo $stage['user_num'];?></div>
+                    <div class="right-ico font-ico gray" onclick=""></div>
+                </div>
+                <div class="d-block bar-box  stage-brief">
+                    <div class="layout-box">
+                        <div class="label">简介:</div>
+                        <div class="middle son-box"></div>
+                    </div>
+                    <div class="stage-intro-jj">
+                        <?php echo $stage['intro'];?>
+                    </div>
+                </div>
+            </div>
+            <?php if($join_info && $user){?>
+            <?php if($join_info==2){?>
+            <div class="stage-data-foot">
+                <div class="fans-btn add-btn disable">待审核</div>
+            </div>
+            <?php }elseif($join_info == 1 && $user['uid'] != $stage['uid']){ ?>
+            <div class="stage-data-foot">
+                <div class="fans-btn blue-btn quitStage" onclick="location.href='/exitStage'">退出驿站</div><!-- quitStage(this) -->
+            </div>
+                <?php }
+            }else{ ?>
+            <div class="stage-data-foot">
+                <div class="fans-btn add-btn addStage" onclick="location.href='/addStage'">加入</div><!-- addStage(this) -->
+            </div>
+            <?php }?>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

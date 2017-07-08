@@ -1,0 +1,335 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/jquery.modal.dialog.js?v=<?php echo STATIC_FILE_VERSION;?>"></script>
+<body>
+<div class="header_top" id="head-nav">
+    <div class="tiezi_toptar" style="border-bottom-color: rgba(217, 217, 217, 0); background: rgba(255, 255, 255, 0);">
+        <ul>
+            <li class="tb_btn btn1">
+                <a href="/fanhui" id="mc-back" class="top-back"></a>
+            </li>
+            <?php if(isset($user) &&($is_join['role'] == 1)){?>
+                <li class="tb_btn btn2" onclick="resetOperation();">
+                    <a id="mc-reset" class="top-reset"></a>
+                </li>
+            <?php }?>
+            <li class="tb_btn btn3">
+                <a href="/fenxiang/id/<?php echo $eventInfo['id']?>" id="mc-share" class="top-share"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+<!--toptar  ed-->
+<div class="top_banner" id="pic"><img src="<?php echo Common::show_img($eventInfo['cover']);?>"></div>
+<!--top_banner  ed-->
+<div class="tiezi_cotent fuwu_cotent">
+    <div class="tz_box fuwu_box1">
+        <p class="tz_tit">
+            <span class="tz_con">
+            <?php if( 1 == $eventInfo['is_top'] ){ ?>
+                <span class="top_btn1 btn_blue">置顶</span>
+            <?php }?>
+            <?php if( 1 == $eventInfo['is_good'] ){ ?>
+                <span class="top_btn1 btn_yellow">精</span>
+            <?php }?>
+            <span class="top_btn1 <?php echo $eventTypeClass[$eventInfo['type']]?>"><?php echo $eventInfo['type_name'];?></span><?php echo $eventInfo['title'];?>
+            </span>
+            <?php if($eventInfo['is_commission']==1){?>
+                <i onclick="location.href='/fenxiang/id/<?php echo $eventInfo['id']?>'"></i>
+            <?php }?>
+        </p>
+<!--        <ul class="fuwu_xia clearfix">-->
+<!--            <li onclick="location='--><?php //echo I_DOMAIN?><!--/common/service?version=--><?php //echo $version?><!--'"><img src="--><?php //echo STATIC_DOMAIN;?><!--/images/topic/fuwu-ico1.png" class="cf_42img">才府质量</li>-->
+<!--            <li onclick="location='--><?php //echo I_DOMAIN?><!--/common/service?version=--><?php //echo $version?><!--'"><img src="--><?php //echo STATIC_DOMAIN;?><!--/images/topic/fuwu-ico1.png" class="cf_42img">才府审核</li>-->
+<!--        </ul>-->
+    </div>
+    <!--标题  ed-->
+    <div class="fuwu_piao">
+        <div class="mes_box">
+            <ul>
+                <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico2.png"></span>
+                <?php foreach($fields_list as $k=>$v){
+                    if($k<3){?>
+                        <li><?php echo date('m-d H:i',strtotime($v['start_time'])); ?></span>   至  <span><?php echo date('m-d H:i',strtotime($v['end_time'])); ?></li>
+                    <?php }
+                }?>
+                <span class="t_after"><a onclick="dialogue();"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico9.png"></a></span>
+            </ul>
+        </div>
+        <div class="mes_box"> <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico3.png"></span>
+            <p class="address"><?php echo $eventInfo['event_address'] ?></p>
+            <span class="t_after"></span> </div>
+        <div class="mes_box mes_box2"> <span class="t_before"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico4.png"></span>
+            <p class="price">
+                <?php if($eventInfo['price_type']==1){?>
+                    免费
+                <?php }else{?>
+                    <?php if($eventInfo['price_count']==1){?>
+                        <?php echo $eventInfo['min_price'];?>
+                    <?php }else{?>
+                        <?php echo $eventInfo['min_price'];?>-<?php echo $eventInfo['max_price'];?>
+                    <?php }
+                }?>
+                <?php if($eventInfo['agio_type']){?>
+                <span><?php if($eventInfo['agio_type']==1){?>满减<?php }else{?>折扣<?php }?></span>
+                <?php }?>
+            </p>
+            <span class="t_after"><a onclick="dialogue();"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico9.png"></a></span> </div>
+    </div>
+    <!--场次点击弹层全部列表-->
+    <div class="wrap" id="wrap" style="display: none;">
+        <div class="num-info" style="z-index: 9999;"> <a class="num-close">×</a>
+            <p class="pop_title"><i class="pop_title_left"></i>场次与价格<i class="pop_title_right"></i></p>
+            <?php if($eventInfo['agio_type']){?>
+                <p class="pop_subtitle">【<?php echo $eventInfo['agio_info'];?>】</p>
+            <?php }?>
+            <div class=" pop_box">
+                <p class="pop_box_title"><?php echo $v['show_time'];?></p>
+                <ul class="pop_box_note clearfix">
+                    <?php foreach($v['price_info'] as $v1){?>
+                    <li class="clearfix"><span class="name"><?php echo $v1['price_mark'] ?$v1['price_mark'] :'票价'?></span><span class="price"><?php if($eventInfo['price_type']==1){?>免费<?php }else{?>￥<?php echo $v1['price']?><?php }?></span></li>
+                    <?php }?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--场次点击弹层全部列表end-->
+    <div class="tz_box tz_box2">
+        <div class="tz_p">
+            <?php echo $eventInfo['content']?>
+        </div>
+        <p class="tz_ban">本文的所有图、文等著作权及所有权归原作者所有<a href="/jubao/type/10/id/<?php echo $eventInfo['id'];?>">举报</a></p>
+        <div class="tz_zan">
+            <div class="tz_zan_s">
+                <a>
+                    <?php if(isset($eventInfo['is_like'])&&$eventInfo['is_like']){?>
+                        <span id="like_status" class="zan_blue"></span>
+                    <?php }else{?>
+                        <span onclick="like(this)" data-type="10" data-id="<?php echo $eventInfo['id'];?>" id="like_status" class="zan_gray"></span>
+                    <?php }?>
+                    <p class="like"><span id="like_num"><?php echo $like_list['size'];?>人</span>喜欢</p>
+                </a>
+            </div>
+            <?php if($like_list['size']==0){?>
+                <div id="like_text"><p class="tz_zan_no">您的喜欢是对我最大的鼓励</p></div>
+            <?php }?>
+            <div class="like_user_more">
+                <?php include_once VIEWS_PATH . "/center/likeUserList.phtml";?>
+            </div>
+        </div>
+    </div>
+    <!--详情介绍  ed-->
+    <?php if($partakeList['size']>0){?>
+    <div class="tz_box tz_box3">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            报名记录
+            <li class="x3"></li>
+        </div>
+        <div class="tz_dashang">
+            <?php foreach($partakeList['list'] as $v){?>
+                <div class="ds_list clearfix">
+                    <li class="ds_left left">
+                        <div class="angel_box">
+                            <a href="/user/<?php echo $v['user_info']['uid'];?>">
+                            <img src="<?php echo Common::show_img($v['user_info']['avatar'],4,160,160);?>" class="ds_photo">
+                            </a>
+                            <i class="<?php echo $v['user_info']['ico_type'];?>"></i>
+                        </div>
+                        <span><?php echo $v['user_info']['nick_name'];?></span>
+                    </li>
+                    <li class="ds_right right"><span class="number">报名<?php echo $v['num'];?>次</span><span class="time"><?php echo $v['add_time'];?></span></li>
+                </div>
+            <?php }?>
+            <?php if($partakeList['size']>3){?>
+                <p class="ds_jilu"><a href="<?php echo I_DOMAIN?>/common/eventPartakeList?id=<?php echo $obj_id;?>&price_type=<?php echo $eventInfo['price_type'];?>&token=<?php echo $token;?>&version=<?php echo $version;?>">查看全部<?php echo $partakeList['size'];?>条报名记录<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+            <?php }?>
+    </div>
+    </div>
+    <?php }?>
+    <!--报名记录  ed-->
+    <div class="tz_box tz_box4">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            评论
+            <li class="x3"></li>
+        </div>
+        <div class="tz_pinglun">
+            <div class="pl_list clearfix">
+                <?php if(isset($user) && $user){?>
+                    <div class="pl_l">
+                        <div class="angel_box" onclick="location.href='/user/<?php echo $user['uid'];?>'">
+                            <img class="ds_photo" src="<?php echo Common::show_img($user['avatar'],1,80,80)?>">
+                            <i class="<?php echo $user['ico_type'];?>"></i>
+                        </div>
+                    </div>
+                <?php }else{?>
+                    <div class="pl_l"><img class="ds_photo" src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-photo.jpg"></div>
+                <?php }?>
+                <div class="pl_r">
+                    <div class="pl_r_con">
+                        <a href="/comment/token/<?php echo $token?>/type/10/id/<?php echo $eventInfo['id'];?>/replyuid/<?php echo $eventInfo['uid'];?>/replyid/0" type="text" >
+                            <p class="pl_r_text">
+<!--                                <input type="text" placeholder="我要评论"  />-->
+                                <span type=text"">我要评论</span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 评论列表 -->
+            <div class="comment_list">
+                <?php include_once VIEWS_PATH . "/common/comment.phtml";?>
+            </div>
+            <div class="pl_message">
+                <div class="mes_top">
+                    <p class="mes_bg">
+                    </p>
+                    <p class="mes_photo" onclick="location='/yizhan/sid/<?php echo $eventInfo['sid'];?>'"><img src="<?php echo Common::show_img($stageInfo['icon'],2,100,100);?>"></p>
+                </div>
+                <p class="mes_name" onclick="location='/yizhan/sid/<?php echo $eventInfo['sid'];?>'"><?php echo $stageInfo['name'];?></p>
+                <p class="mes_fensi"></p>
+                <ul class="fuwu_zhidian clearfix">
+                    <li><a href="/tell/13012888193"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico5.png">致电客服</a></li>
+                    <li class="fuwu_xian"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/zt-btn2.png"></li>
+                    <li><a href="/yizhan/sid/<?php echo $eventInfo['sid'];?>"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico6.png">进入驿站</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tz_box tz_box5 bottom-none">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            看了又看
+            <li class="x3"></li>
+        </div>
+        <div class="tz_neirong">
+            <?php foreach($more_event as $v){?>
+                <div class="tz_nei_list fuwu_nei_list clearfix">
+                    <p class="fuwu_left"><img src="<?php echo $v['cover'];?>"></p>
+                    <div class="fuwu_right">
+                        <div class="fuwu_nr_container">
+                            <ul class="fuwu_m1 clearfix">
+                                <li class="l <?php echo $eventTypeClassSmall[$v['type']];?>"><?php echo $v['type_name'];?></li>
+                                <li class="r">进行中</li>
+                            </ul>
+                            <p class="fuwu_m2" onclick="location='<?php echo $v['url'];?>'"><?php echo $v['title'];?></p>
+                            <p class="fuwu_m3"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico2.png" class="cf_42img"><?php echo Common::getEventStartTime($v['id']);?></p>
+                            <p class="fuwu_m4"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico3.png" class="cf_42img"><?php echo $v['address_name'];?><span> <?php if($v['price_type']==1){?>
+                                        免费
+                                    <?php }else{?>
+                                        <?php if($v['price_count']==1){?>¥<?php echo $v['min_price']?><?php }else{?>¥<?php echo $v['min_price']?>起<?php }?>
+                                    <?php }?></span></p>
+                        </div>
+                    </div>
+                </div>
+            <?php }?>
+            <?php foreach($like_event as $v){?>
+                <div onclick="location='<?php echo $v['url'];?>'" class="tz_nei_list fuwu_nei_list clearfix">
+                    <p class="fuwu_left"><img src="<?php echo $v['cover'];?>"></p>
+                    <div class="fuwu_right">
+                        <div class="fuwu_nr_container">
+                            <ul class="fuwu_m1 clearfix">
+                                <li class="l <?php echo $eventTypeClassSmall[$v['type']];?>"><?php echo $v['type_name'];?></li>
+                                <li class="r">进行中</li>
+                            </ul>
+                            <p class="fuwu_m2"><?php echo $v['title'];?></p>
+                            <p class="fuwu_m3"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico2.png" class="cf_42img"><?php echo Common::getEventStartTime($v['id']);?></p>
+                            <p class="fuwu_m4"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico3.png" class="cf_42img"><?php echo $v['address_name'];?><span> <?php if($v['price_type']==1){?>
+                                        免费
+                                    <?php }else{?>
+                                        <?php if($v['price_count']==1){?>¥<?php echo $v['min_price']?><?php }else{?>¥<?php echo $v['min_price']?>起<?php }?>
+                                    <?php }?></span></p>
+                        </div>
+                    </div>
+                </div>
+            <?php }?>
+
+        </div>
+        <p class="ds_jilu_more"><a href="/eventMore/type/<?php echo $eventInfo['type']?>">更多服务<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+    </div>
+    <!--猜您喜欢-->
+</div>
+</div>
+<!--tiezi_content  ed-->
+<div class="footers">
+    <div class="tiezi_bottom clearfix">
+        <ul>
+            <?php if(!isset($user)){?>
+                <li class="bbtn1" onclick="location='/login'"><a><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }elseif(isset($user)&&$user['uid']!=$eventInfo['uid']){?>
+                <li class="bbtn1"><a href="/chat/user/<?php echo $eventInfo['uid'];?>"><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }else{?>
+                <li class="bbtn1"><a onclick="consult();"><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }?>
+            <?php if(isset($eventInfo['is_collect'])&&$eventInfo['is_collect']==1){?>
+                <li class="bbtn2_hover" id="like_li_status"  data-type="10" data-id="<?php echo $eventInfo['id'];?>" onclick="RemoveCollection(this)"><a id="like_a_status"><span class="bottom_ico bottom_ico_like_hover"></span>已收藏</a></li>
+            <?php }else{?>
+                <li class="bbtn2" id="like_li_status" data-type="10" data-id="<?php echo $eventInfo['id'];?>" onclick="Collection(this)"><a id="like_a_status"><span class="bottom_ico bottom_ico_like"></span>收藏</a></li>
+            <?php }?>
+            <li class="bbtn3"><a href="/yizhan/sid/<?php echo $eventInfo['sid'];?>"><span class="bottom_ico bottom_ico_post"></span>驿站</a></li>
+            <?php if($eventInfo['button_type']==0){?>
+            <?php if($version<'3.8'){?>
+                <li class="bbtn4"><a href="<?php if($eventInfo['price_type']==1){?>/baoming/id/<?php echo $eventInfo['id']?><?php }else{?>/xiadan/id/<?php echo $eventInfo['id']?><?php }?>" class="blues">立即报名</a></li>
+            <?php }else{?>
+                <li class="bbtn4"><a href="<?php if($eventInfo['price_type']==1){?>/baoming/id/<?php echo $eventInfo['id']?><?php }else{?>/xiadan/id/<?php echo $eventInfo['id']?>/sp/<?php echo $sp?><?php }?>" class="blues">立即报名</a></li>
+            <?php }?>
+            <?php }elseif($eventInfo['button_type']==4){?>
+            <li class="bbtn4 bbtn4_hover"><a>名额已满</a></li>
+            <?php }elseif($eventInfo['button_type']==2){?>
+            <li class="bbtn4 bbtn4_hover"><a>报名结束</a></li>
+            <?php }elseif($eventInfo['button_type']==3){?>
+            <li class="bbtn4 bbtn4_hover"><a>已报名</a></li>
+            <?php }elseif($eventInfo['button_type']==1){?>
+            <li class="bbtn4 bbtn4_hover"><a>活动结束</a></li>
+            <?php }?>
+        </ul>
+    </div>
+</div>
+<!--tiezi_bottom  ed-->
+<!--底部弹层操作项 -->
+<div class="bottom-label">
+    <ul style="display:none">
+        <?php if((isset($user)&&$eventInfo['uid'] == $user['uid'])){  ?>
+            <li class="label_btn" data-id="<?php echo $eventInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/event/delEvent" onclick="delContent(this);">删除</li>
+        <?php }?>
+        <?php if ($is_join['role'] == 1 || $is_join['role'] == 2){ ?>
+            <?php if($eventInfo['is_top']==1){ ?>
+                <li data-type="1" class="cancel-top label_btn" data-id="<?php echo $eventInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/event/cancelTop" onclick="cancelOperation(this);">取消置顶</li>
+            <?php }else{ ?>
+                <li data-type="1" class="tops label_btn" data-id="<?php echo $eventInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/event/top" onclick="operation(this);">置顶</li>
+            <?php } ?>
+            <?php if($eventInfo['is_good']==1){ ?>
+                <li data-type="2" class="cancel-top label_btn" data-id="<?php echo $eventInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/event/cancelTop" onclick="cancelOperation(this);">取消加精</li>
+            <?php }else{ ?>
+                <li data-type="2" class="tops label_btn" data-id="<?php echo $eventInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/event/top" onclick="operation(this);">加精</li>
+            <?php }
+        } ?>
+        <li  class="label_btn cancel"><a>取消</a></li>
+    </ul>
+</div>
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+    function resetOperation(){
+        $(".bottom-label ul").css("display","block")
+        $(".bottom-label").addClass("am-modal-active");
+        if($(".labelbg").length>0){
+            $(".labelbg").addClass("labelbg-active");
+        }else{
+            $("body").append('<div class="labelbg"></div>');
+            $(".labelbg").addClass("labelbg-active");
+        }
+        $(".labelbg-active,.cancel").click(function(){
+            $(".bottom-label").removeClass("am-modal-active");
+            $(".bottom-label ul").css("display","none")
+            setTimeout(function(){
+                $(".labelbg-active").removeClass("labelbg-active");
+                $(".labelbg").remove();
+            },200);
+        })
+    }
+
+</script>
+</body>
+</html>

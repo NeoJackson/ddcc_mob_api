@@ -1,0 +1,79 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="kunqu_top">
+    <div class="top_banner"><img src="<?php echo STATIC_DOMAIN;?>/images/special/kunqu-top.jpg" id="pic"></div>
+    <div class="top_jieshao">
+        <p class="t_p">唱腔华丽婉转、念白儒雅<br>
+            表演细腻、舞蹈飘逸</p>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/special/kunqu-img1.jpg" class="t_img">
+        <p class="t_p">昆曲原名"昆曲腔""昆腔"，<br>
+            是中国最古老的声腔、剧种，<br>
+            清代以来被称为昆曲，现又被称为昆剧。<br>
+        </p>
+        <p class="t_p t_p2">昆曲发源于14世纪中国的苏州太仓南码头，后经魏良辅等人
+            的改良而走向全国，自明代中叶独领中国剧坛近300年。</p>
+    </div>
+</div>
+<!--kunu_top  ed-->
+<div class="kunqu_center">
+    <div class="cen_box">
+        <h2 class="c_title">精品· 长生殿</h2>
+        <p class="c_p">只见她垂垂的湿满颐<br>
+            汪汪的含泪眶<br>
+            纷纷的点滴在神台上<br>
+            分明是牵衣请死愁容貌<br>
+            回顾吞声惨面庞<br>
+            这伤心真无两<br>
+        </p>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/special/kunqu-img2.jpg" class="c_img"> </div>
+    <div class="cen_box">
+        <h2 class="c_title">精品· 桃花扇</h2>
+        <p class="c_p">近花外楼柳下舟词一首花满袖<br>
+            那女儿家心事让两眉羞 <br>
+            绸缎与折扇的凭肩游 <br>
+            谁又笑涡红透哦 <br>
+            暮雨入画将离愁绘入这纸深秋 <br>
+            将那陈词也唱出了新愁 <br>
+            那日你折尽长安的柳 <br>
+            有明月怕登楼愁不肯休<br>
+            整一片断魂心痛<br>
+        </p>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/special/kunqu-img3.jpg" class="c_img"> </div>
+    <div class="cen_box">
+        <h2 class="c_title">精品· 牡丹亭</h2>
+        <p class="c_p">情不知所起<br>
+            一往而深<br>
+            生者可以死<br>
+            死者可以生<br>
+            生而不可与死<br>
+            死而不可复生者<br>
+            皆非情之至也<br>
+        </p>
+        <p class="c_p2">《牡丹亭》描写了官宦之女杜丽娘一日在花园中睡着，与一名年轻书生在梦中相爱，醒后终日寻梦不得，抑郁而终。</p>
+        <p class="c_p2">杜丽娘临终前将自己的画像封存并埋入亭旁。三年之后，岭南书生柳梦梅赴京赶考，适逢金国在边境作乱，杜丽娘之父杜宝奉皇帝之命赴前线镇守。</p>
+        <p class="c_p2">其后柳梦梅发现杜丽娘的画像，杜丽娘化为鬼魂寻到柳梦梅并叫他掘坟开棺，杜丽娘复活。</p>
+        <img src="<?php echo STATIC_DOMAIN;?>/images/special/kunqu-img5.jpg" class="c_img">
+        <p class="c_p2">随后柳梦梅赶考并高中状元，但由于战乱发榜延时，仍
+            为书生的柳梦梅受杜丽娘之托寻找到丈人杜宝。杜宝认定此人胡言乱语，随即将其打入大狱。得知柳梦梅为新科状元之后，杜宝才将其放出，但始终不认其为女婿。</p>
+        <p class="c_p2">最终闹到金銮殿之上才得以解决，杜丽娘和柳梦梅二人终成眷属。</p>
+    </div>
+    <div class="cen_box">
+        <h2 class="c_title">精彩昆曲驿站</h2>
+        <?php if(isset($operaSpecialList) && $operaSpecialList){
+            foreach($operaSpecialList as $val){?>
+                <p class="c_p2">&nbsp;&nbsp;<?php echo Common::msubstr($val['intro'],0,70);?></p>
+                <div class="c_user">
+                    <p class="u1"><a href="/yizhan/sid/<?php echo $val['sid'];?>"><img src="<?php echo Common::show_img($val['icon'],2,100,100);?>"></a></p>
+                    <p class="u2"><a href="/yizhan/sid/<?php echo $val['sid'];?>"><?php echo $val['name'];?></a></p>
+                    <p class="u3">成员:<?php echo $val['user_num'];?>&nbsp;&nbsp;&nbsp;&nbsp;帖子:<?php echo $val['topic_num'];?></p>
+                    <p class="u4"><a href="/yizhan/sid/<?php echo $val['sid'];?>">进入驿站</a></p>
+                </div>
+            <?php }
+        }?>
+    </div>
+</div>
+<!--kq_content  ed-->
+<div class="kunqu_bottom"><img src="<?php echo STATIC_DOMAIN;?>/images/special/zt-bottom.png"> </div>
+<!--kq_bottom-->
+</body>
+</html>

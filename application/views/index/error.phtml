@@ -1,0 +1,44 @@
+<?php include_once VIEWS_PATH."/public/head.phtml";?>
+<link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css?v=<?php echo STATIC_FILE_VERSION;?>">
+<link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/topic_base.css?v=<?php echo STATIC_FILE_VERSION;?>">
+<link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkService.css?v=<?php echo STATIC_FILE_VERSION;?>">
+<link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkPost.css?v=<?php echo STATIC_FILE_VERSION;?>">
+
+<body ontouchstart="">
+<div class="content bg-white page">
+    <div class="header change-head half-bor-bottom">
+        <a href="/fanhui" class="back-d">
+        </a>
+    </div>
+    <div class="sns-detail-con">
+        <div class="detail-error">
+            <div class="error-img"></div>
+            <?php if($type == 1){?>
+                <p class="bor">抱歉！该用户帐号已被停用，由于该用户违反了社区的相关规定</p>
+            <?php }elseif($type == 2){?>
+                <p class="bor">抱歉，该页面不存在</p>
+            <?php }elseif($type == 3){?>
+                <p class="bor">抱歉！该驿站已被关闭，由于该驿站违反了社区的相关规定</p>
+            <?php }?>
+<!--            <p><em id="time_delay">3</em>秒钟自动跳转...</p>-->
+        </div>
+    </div>
+
+</div>
+
+<!--<script type="text/javascript">-->
+<!--    window.onload = delayURL('/');-->
+<!--    function delayURL(url) {-->
+<!--        var delay = parseInt(document.getElementById("time_delay").innerHTML);-->
+<!--        if(delay > 0) {-->
+<!--            delay--;-->
+<!--            document.getElementById("time_delay").innerHTML = delay;-->
+<!--        } else {-->
+<!--            location.href = url;-->
+<!--        }-->
+<!--        setTimeout("delayURL('" + url + "')", 1000);-->
+<!--    }-->
+<!--</script>-->
+</body>
+</html>
+

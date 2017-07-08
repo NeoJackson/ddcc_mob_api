@@ -1,0 +1,314 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<!--<div class="tiezi_toptar" id="bar" >
+    <ul>
+        <li class="tb_btn btn1"><a href=""><img src="<?php /*echo STATIC_DOMAIN;*/?>/images/topic/top-btn1.png" id="top_img1"></a></li>
+        <li class="tb_btn btn2"><a href=""><img src="<?php /*echo STATIC_DOMAIN;*/?>/images/topic/top-btn2.png" id="top_img2"></a></li>
+        <li class="tb_btn btn3"><a href=""><img src="<?php /*echo STATIC_DOMAIN;*/?>/images/topic/top-btn3.png" id="top_img3"></a></li>
+    </ul>
+</div>-->
+<div class="header_top" id="head-nav">
+    <div class="tiezi_toptar" style="border-bottom-color: rgba(217, 217, 217, 0); background: rgba(255, 255, 255, 0);">
+        <ul>
+            <li class="tb_btn btn1">
+                <a href="/fanhui" id="mc-back" class="top-back"></a>
+            </li>
+            <?php if(isset($user) &&($is_join['role'] == 1)){?>
+                <li class="tb_btn btn2" onclick="resetOperation();">
+                    <a id="mc-reset" class="top-reset"></a>
+                </li>
+            <?php }?>
+            <li class="tb_btn btn3">
+                <a href="/fenxiang/id/<?php echo $goodsInfo['id']?>" id="mc-share" class="top-share"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--toptar  ed-->
+<div class="scroll" id="scroll">
+<div id="slideBox" class="slideBox">
+    <!--banner图底部内阴影-->
+    <div class="slideBox_shadow"></div>
+    <div class="bd" id="pic">
+        <div class="tempWrap" style="overflow:hidden; position:relative;">
+            <img id="mc-img" src="<?php echo IMG_DOMAIN.$goodsInfo['cover'];?>">
+        </div>
+    </div>
+</div>
+<!--top_banner  ed-->
+<div class="tiezi_cotent fuwu_cotent">
+    <div class="tz_box product_box1">
+        <p class="tz_tit">
+            <span class="tz_con">
+            <?php if( 1 == $goodsInfo['is_top'] ){ ?>
+                <span class="top_btn1 btn_blue">置顶</span>
+            <?php }?>
+            <?php if( 1 == $goodsInfo['is_good'] ){ ?>
+                <span class="top_btn1 btn_yellow">精</span>
+            <?php }?>
+            <?php echo $goodsInfo['name'];?>
+           </span>
+            <?php if($goodsInfo['is_commission']==1){?>
+                <i onclick="location.href='/fenxiang/id/<?php echo $goodsInfo['id']?>'"></i>
+            <?php }?>
+        </p>
+        <ul class="product_price clearfix">
+            <?php if($goodsInfo['type']==1){?>
+                <li class="pr1">￥<?php echo $goodsInfo['price'];?></li>
+            <?php }elseif($goodsInfo['type']==2){?>
+                <li class="pr1"><i class="pr1_blessing"></i><?php echo $goodsInfo['score'];?>&nbsp;+￥<?php echo $goodsInfo['price'];?></li>
+            <?php }elseif($goodsInfo['type']==3){?>
+                <li class="pr1"><i class="pr1_blessing"></i><?php echo $goodsInfo['score'];?></li>
+            <?php }?>
+            <li class="pr2"><?php echo $goodsInfo['address_name'];?>&nbsp;&nbsp;&nbsp;
+                <?php if($goodsInfo['sell_num']>0){?>
+                销量:<?php echo $goodsInfo['sell_num'];?>
+                <?php }?>
+            </li>
+        </ul>
+<!--        <ul class="fuwu_xia clearfix">-->
+<!--            <li onclick="location='--><?php //echo I_DOMAIN?><!--/common/service?version=--><?php //echo $version?><!--'"><img src="--><?php //echo STATIC_DOMAIN;?><!--/images/topic/fuwu-ico1.png" class="cf_42img">才府质量</li>-->
+<!--            <li onclick="location='--><?php //echo I_DOMAIN?><!--/common/service?version=--><?php //echo $version?><!--'"><img src="--><?php //echo STATIC_DOMAIN;?><!--/images/topic/fuwu-ico1.png" class="cf_42img">才府审核</li>-->
+<!--        </ul>-->
+    </div>
+    <!--标题  ed-->
+    <div class="tz_box tz_box2 fuwu_box2">
+        <div class="tz_p">
+            <?php echo $goodsInfo['intro']?>
+        </div>
+        <p class="tz_ban">本文的所有图、文等著作权及所有权归原作者所有<a href="/jubao/type/14/id/<?php echo $goodsInfo['id'];?>">举报</a></p>
+        <!-- 喜欢列表 -->
+        <div class="tz_zan">
+            <div class="tz_zan_s">
+                <a>
+                    <?php if(isset($goodsInfo['is_like'])&&$goodsInfo['is_like']){?>
+                        <span id="like_status" class="zan_blue"></span>
+                    <?php }else{?>
+                        <span onclick="like(this)" data-type="12" data-id="<?php echo $goodsInfo['id'];?>" id="like_status" class="zan_gray"></span>
+                    <?php }?>
+                    <p class="like"><span id="like_num"><?php echo $like_list['size'];?>人</span>喜欢</p>
+                </a>
+            </div>
+            <?php if($like_list['size']==0){?>
+                <div id="like_text"><p class="tz_zan_no">您的喜欢是对我最大的鼓励</p></div>
+            <?php }?>
+            <div class="like_user_more">
+                <?php include_once VIEWS_PATH . "/center/likeUserList.phtml";?>
+            </div>
+        </div>
+        <!-- 喜欢列表end -->
+    </div>
+    <!--详情介绍  ed-->
+    <?php if($buyList['size']>0){?>
+    <div class="tz_box tz_box3">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            购买记录
+            <li class="x3"></li>
+        </div>
+        <div class="tz_dashang">
+            <?php foreach($buyList['list'] as $v){?>
+            <div class="ds_list clearfix" >
+                <li class="ds_left left">
+                    <div class="angel_box">
+                        <a href="/user/<?php echo $v['user_info']['uid'];?>">
+                            <img src="<?php echo Common::show_img($v['user_info']['avatar'],4,160,160);?>" class="ds_photo">
+                            <i class="<?php echo $v['user_info']['ico_type'];?>"></i>
+                        </a>
+                    </div>
+                    <span><?php echo $v['user_info']['nick_name'];?></span>
+                </li>
+                <li class="ds_right right"><span class="number">购买<?php echo $v['num'];?>件</span><span class="time"><?php echo $v['add_time'];?></span></li>
+            </div>
+            <?php }?>
+            <?php if($buyList['size']>3){?>
+                <p class="ds_jilu"><a href="<?php echo I_DOMAIN?>/common/goodsBuyList?id=<?php echo $obj_id;?>&token=<?php echo $token;?>&version=<?php echo $version;?>">查看全部<?php echo $buyList['size']?>条购买记录<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+            <?php }?>
+        </div>
+        </div>
+    <?php }?>
+    <!--购买记录  ed-->
+    <div class="tz_box tz_box4">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            评论
+            <li class="x3"></li>
+        </div>
+        <div class="tz_pinglun">
+            <div class="pl_list clearfix">
+                <?php if(isset($user) && $user){?>
+                    <div class="pl_l">
+                        <div class="angel_box" onclick="location.href='/user/<?php echo $user['uid'];?>'">
+                            <img class="ds_photo" src="<?php echo Common::show_img($user['avatar'],1,80,80)?>">
+                            <i class="<?php echo $user['ico_type'];?>"></i>
+                        </div>
+                    </div>
+                <?php }else{?>
+                    <div class="pl_l"><img class="ds_photo" src="<?php echo Common::show_img($stageInfo['icon'],2,200,200);?>"></div>
+                <?php }?>
+                <div class="pl_r">
+                    <div class="pl_r_con">
+                        <a href="/comment/token/<?php echo $token?>/type/12/id/<?php echo $goodsInfo['id'];?>/replyuid/<?php echo $goodsInfo['uid'];?>/replyid/0" type="text" >
+                            <p class="pl_r_text">
+<!--                                <input type="text" placeholder="我要评论" />-->
+                                <span type=text"">我要评论</span>
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- 评论列表 -->
+            <div class="comment_list">
+                <?php include_once VIEWS_PATH . "/common/comment.phtml";?>
+            </div>
+            <div class="pl_message">
+                <div class="mes_top">
+                    <p class="mes_bg">
+                    </p>
+                    <p class="mes_photo" onclick="location.href='/yizhan/sid/<?php echo $stageInfo['sid'];?>'"><img src="<?php echo Common::show_img($stageInfo['icon'],2,180,180);?>"></p>
+                </div>
+                <p class="mes_name" onclick="location.href='/yizhan/sid/<?php echo $stageInfo['sid'];?>'"><?php echo $stageInfo['name'];?></p>
+                <p class="mes_fensi"></p>
+                <ul class="fuwu_zhidian clearfix">
+                    <li><a href="/tell/13012888193"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico5.png">致电客服</a></li>
+                    <li class="fuwu_xian"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/zt-btn2.png"></li>
+                    <li><a href="/yizhan/sid/<?php echo $stageInfo['sid'];?>"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico6.png">进入驿站</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--评论 ed-->
+    <div class="tz_box tz_box5 clearfix bottom-none">
+        <div class="tz_box_title clearfix">
+            <li class="x1"></li>
+            看了又看
+            <li class="x3"></li>
+        </div>
+        <div class="more_product clearfix">
+            <?php foreach($moreGoods as $v){?>
+                <div class="box">
+                    <p class="pro_img" onclick="location='<?php echo $v['url'];?>'"><img src="<?php echo Common::show_img($v['cover'],0,600,600);?>"></p>
+                    <p class="pro_title" onclick="location='<?php echo $v['url'];?>'"><?php echo $v['name'];?></p>
+                    <p class="pro_name"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico6.png"><?php echo $v['stage_name'];?></p>
+                    <ul class="pro_price clearfix">
+                        <?php if($v['type']==1){?>
+                            <li class="price1">￥<?php echo $v['price'];?></li>
+                        <?php }elseif($v['type']==2){?>
+                            <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?>&nbsp;+￥<?php echo $v['price'];?></li>
+                        <?php }elseif($v['type']==3){?>
+                            <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?></li>
+                        <?php }?>
+                        <?php if($v['sell_num']>0){?>
+                            <li class="sales">销量 <?php echo $v['sell_num'];?></li>
+                        <?php }?>
+                    </ul>
+                </div>
+            <?php }?>
+            <?php foreach($lookGoods as $v){?>
+                <div class="box">
+                    <p class="pro_img" onclick="location='<?php echo $v['url'];?>'"><img src="<?php echo Common::show_img($v['cover'],0,600,600);?>"></p>
+                    <p class="pro_title" onclick="location='<?php echo $v['url'];?>'"><?php echo $v['name'];?></p>
+                    <p class="pro_name"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/fuwu-ico6.png"><?php echo $v['stage_name'];?></p>
+                    <ul class="pro_price clearfix">
+                        <?php if($v['type']==1){?>
+                            <li class="price1">￥<?php echo $v['price'];?></li>
+                        <?php }elseif($v['type']==2){?>
+                            <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?>&nbsp;+￥<?php echo $v['price'];?></li>
+                        <?php }elseif($v['type']==3){?>
+                            <li class="price1"><i class="pr1_blessing"></i><?php echo $v['score'];?></li>
+                        <?php }?>
+                        <?php if($v['sell_num']>0){?>
+                            <li class="sales">销量 <?php echo $v['sell_num'];?></li>
+                        <?php }?>
+                    </ul>
+                </div>
+            <?php }?>
+        </div>
+        <p class="ds_jilu"><a href="/goodsMore">进入商城<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+    </div>
+    <!--看了又看-->
+</div>
+</div>
+</div>
+<!--tiezi_content  ed-->
+<div class="footers">
+    <div class="tiezi_bottom clearfix">
+        <ul>
+            <?php if(!isset($user)){?>
+                <li class="bbtn1" onclick="location='/login'"><a><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }elseif(isset($user)&&$user['uid']!=$goodsInfo['uid']){?>
+            <li class="bbtn1"><a href="/chat/user/<?php echo $goodsInfo['uid'];?>"><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }else{?>
+                <li class="bbtn1"><a onclick="consult();"><span class="bottom_ico bottom_ico_consult"></span>咨询</a></li>
+            <?php }?>
+            <?php if(isset($goodsInfo['is_collect'])&&$goodsInfo['is_collect']==1){?>
+                <li class="bbtn2_hover" id="like_li_status" onclick="RemoveCollection(this)"  data-type="12" data-id="<?php echo $goodsInfo['id'];?>"><a id="like_a_status"><span class="bottom_ico bottom_ico_like_hover"></span>已收藏</a></li>
+            <?php }else{?>
+                <li class="bbtn2" onclick="Collection(this)" id="like_li_status"  data-type="12" data-id="<?php echo $goodsInfo['id'];?>"><a id="like_a_status"><span class="bottom_ico bottom_ico_like"></span>收藏</a></li>
+            <?php }?>
+            <li class="bbtn3"><a href="/yizhan/sid/<?php echo $goodsInfo['sid'];?>"><span class="bottom_ico bottom_ico_post"></span>驿站</a></li>
+            <?php if($goodsInfo['stock_num']>0){?>
+                <?php if($goodsInfo['start_type']==1){?>
+                    <li class="bbtn5"><a>待售<span class="btn5_time"><?php echo date("Y-m-d H:i",strtotime($goodsInfo['start_time']));?>开售</span></a></li>
+                <?php }elseif($goodsInfo['start_type']==2){?>
+                    <?php if($version <'3.8'){?>
+                    <li class="bbtn4"><a href="/goumai/id/<?php echo $goodsInfo['id'];?>">立即购买</a></li>
+                    <?php }else{?>
+                    <li class="bbtn4"><a href="/goumai/id/<?php echo $goodsInfo['id'];?>/sp/<?php echo $sp?>">立即购买</a></li>
+                    <?php }?>
+                <?php }elseif($goodsInfo['start_type']==3||$goodsInfo['start_type']==4){?>
+                    <li class="bbtn4 bbtn4_hover"><a>已下架</a></li>
+                <?php }?>
+            <?php }else{?>
+                <li class="bbtn4 bbtn4_hover"><a>已售完</a></li>
+            <?php }?>
+
+        </ul>
+    </div>
+</div>
+<!--tiezi_bottom  ed-->
+<!--底部弹层操作项 -->
+<div class="bottom-label">
+    <ul style="display: none">
+        <?php if(isset($user) && $user&&$goodsInfo['uid'] == $user['uid']){  ?>
+            <li class="label_btn" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/stagegoods/delOrEnd" onclick="delContent(this);">删除</li>
+        <?php }?>
+        <?php if ($is_join['role'] == 1 || $is_join['role'] == 2){ ?>
+            <?php if($goodsInfo['is_top']==1){ ?>
+                <li data-type="1" class="cancel-top label_btn" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/stagegoods/cancelTop" onclick="cancelOperation(this);">取消置顶</li>
+            <?php }else{ ?>
+                <li data-type="1" class="tops label_btn" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/stagegoods/top" onclick="operation(this);">置顶</li>
+            <?php } ?>
+            <?php if($goodsInfo['is_good']==1){ ?>
+                <li data-type="2" class="cancel-top label_btn" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/stagegoods/cancelTop" onclick="cancelOperation(this);">取消加精</li>
+            <?php }else{ ?>
+                <li data-type="2" class="tops label_btn" data-id="<?php echo $goodsInfo['id'];?>" data-token="<?php echo $token;?>" data-url="/stagegoods/top" onclick="operation(this);">加精</li>
+            <?php }
+        } ?>
+        <li class="label_btn cancel"><a>取消</a></li>
+    </ul>
+</div>
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+    function resetOperation(){
+        $(".bottom-label ul").css("display","block")
+        $(".bottom-label").addClass("am-modal-active");
+        if($(".labelbg").length>0){
+            $(".labelbg").addClass("labelbg-active");
+        }else{
+            $("body").append('<div class="labelbg"></div>');
+            $(".labelbg").addClass("labelbg-active");
+        }
+        $(".labelbg-active,.cancel").click(function(){
+            $(".bottom-label").removeClass("am-modal-active");
+            $(".bottom-label ul").css("display","none")
+            setTimeout(function(){
+                $(".labelbg-active").removeClass("labelbg-active");
+                $(".labelbg").remove();
+            },200);
+        })
+    }
+</script>
+</body>
+</html>

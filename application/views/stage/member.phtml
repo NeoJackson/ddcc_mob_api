@@ -1,0 +1,70 @@
+<?php include_once VIEWS_PATH."/stage/head.phtml";?>
+<div class="con-center">
+
+    <div class="stage-tit-bar" data-type="boss">驿长</div>
+    <div class="member-list">
+        <a class="d-block member-part" href="/user/<?php echo $stage['user']['uid'];?>">
+            <div class="user-pic"><img src="<?php echo Common::show_img($stage['user']['avatar'],1,130,130);?>" width="65" height="65">
+                <?php if($version >= '2.3'){?>
+                <i class="<?php echo $stage['user']['ico_type'];?>"></i>
+                <?php }?>
+            </div>
+            <p class="blue txt-cut text-small"><?php echo $stage['user']['nick_name'];?></p>
+        </a>
+    </div>
+
+    <div class="stage-tit-bar" data-type="admin">驿管</div>
+    <div class="member-list" id="adminList">
+        <?php if(isset($admin_list) && $admin_list){
+            foreach($admin_list as $key=>$val){?>
+                <a class="d-block member-part" href="/user/<?php echo $val['uid'];?>">
+                 <div class="user-pic">
+                        <img src="<?php echo Common::show_img($val['avatar'],1,130,130);?>" width="65" height="65">
+                <?php if($version >= '2.3'){?>
+                     <i class="<?php echo $val['ico_type'];?>"></i>
+                    <?php }?>
+                    </div>
+                    <p class="blue txt-cut text-small"><?php echo $val['nick_name'];?></p>
+                </a>
+            <?php }
+        }else{?>
+            <div class="p-empty-con nobody"><i class="blue warn-ico font-ico"></i>该驿站暂无驿管。</div>
+        <?php }?>
+    </div>
+
+    <div class="stage-tit-bar" data-type="member">成员</div>
+    <div class="member-list" id="memberList">
+        <?php if(isset($member_list['list']) && $member_list['list']){?>
+        <?php include_once VIEWS_PATH."/stage/memberList.phtml";?>
+        <?php } else {?>
+        <div class="p-empty-con nobody"><i class="blue warn-ico font-ico"></i>该驿站暂无成员。</div>
+        <?php }?>
+    </div>
+    <?php if(isset($member_list['size']) && $member_list['size'] > 20) {?>
+        <div class="footer-loading" id="loadMore"><img src="<?php echo STATIC_DOMAIN;?>/images/loading.gif" height="35" width="35"></div>
+        <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/contentloader.js"></script>
+        <script>
+            $(document).ready(function(){
+                var opts = {
+                    loadType:1,//1、页面到达底部自动加载 2、点击更多进行加载
+                    isShowPage:false,//是否显示分页
+                    loadNumBeforeShowPage:6,//显示分页前的加载次数
+                    loadMoreBtn:$('#loadMore'),//加载更过按钮或者loading图标
+
+                    pageSize:20,
+                    pageNum:2,
+                    sid:<?php echo $stage['sid'];?>,
+                    size:<?php echo $member_list['size'];?>,
+                    list:$("#memberList"),
+                    template:function(data){
+                        return data.data;
+                    }
+                }
+                $.fn.loadMore('/stage/memberMore',{page:opts.pageNum,size:opts.pageSize,sid:opts.sid},opts);
+            });
+        </script>
+    <?php }?>
+</div>
+</div>
+</body>
+</html>

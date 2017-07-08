@@ -1,0 +1,44 @@
+<section>
+    <div class="top-user-text">
+        <?php include VIEWS_PATH."/center/userName.phtml";?>
+        <span class="gray">分享了心境</span>
+    </div>
+    <div class="">
+        <p><?php echo $val['content']?></p>
+        <div class="internal-box">
+            <div class="inner">
+                <?php if(isset($val['share_data']) && $val['share_data']){?>
+                    <div class="">
+                        <a class="blue" href="/user/<?php echo $val['share_data']['user']['uid'];?>"><?php echo $val['share_data']['user']['nick_name'];?>:&nbsp;</a>
+                        <?php echo $val['share_data']['content'];?>
+                        <?php if(isset($val['share_data']['img']) && $val['share_data']['img']){?>
+                            <div class="dynamic-pic-list">
+                                <ul class="list-ul">
+                                    <?php foreach($val['share_data']['img'] as $key_img_s=>$val_img_s){
+                                        if($key_img_s<9){?>
+                                            <li><img onclick="imgPopup(this)" data-imgsrc="<?php echo Common::show_img($val_img_s['img'],3);?>" data-src="<?php echo Common::show_img($val_img_s['img'],3,200,200,1);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)"></li>
+                                        <?php }
+                                    }?>
+                                </ul>
+                            </div>
+                        <?php }?>
+                        <?php if(isset($val['share_data']['video']) && $val['share_data']['video']){
+                            foreach($val['share_data']['video'] as $key_video_s=>$val_video_s){?>
+                                <a class="layout-box video-box">
+                                    <div class="fl">
+                                        <img src="<?php echo $val_video_s['img_small'];?>" width="65" height="65">
+                                    </div>
+                                    <div class="son-box">
+                                        <p class="tit"><?php echo $val_video_s['title'];?></p>
+                                    </div>
+                                </a>
+                            <?php }
+                        }?>
+                    </div>
+                <?php }else{?>
+                    抱歉，此内容已被作者删除。
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,12 @@
+<?php if(isset($member_list['list']) && $member_list['list']){
+    foreach($member_list['list'] as $key=>$val){?>
+        <a class="d-block member-part" href="/user/<?php echo $val['uid'];?>">
+            <div class="user-pic"><img src="<?php echo Common::show_img($val['avatar'],1,130,130);?>" width="65" height="65">
+             <?php if($version >= '2.3'){?>
+                <i class="<?php echo $val['ico_type'];?>"></i>
+             <?php }?>
+            </div>
+            <p class="blue txt-cut text-small"><?php echo $val['nick_name'];?></p>
+        </a>
+    <?php }?>
+<?php }?>

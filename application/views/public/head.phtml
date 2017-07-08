@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <script src="<?php echo STATIC_DOMAIN;?>/js/lib/appframework/appframework.js" type="text/javascript"></script>
+    <script src="<?php echo STATIC_DOMAIN;?>/js/lib/appframework/plugins/af.popup.js" type="text/javascript"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/swipe.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/common.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/addcontent.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/commentAndShare.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/operation.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/lazyload.min.js"></script>
+
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/user_dynamic.css" type="text/css" rel="stylesheet">
+    <script>
+        window.$userInfo = <?php if(isset($user)){echo json_encode($user);}else{echo json_encode(array());}?>;
+    </script>
+    <title><?php if(isset($page_title)){echo $page_title;}?></title>
+</head>
+<body ontouchstart="">

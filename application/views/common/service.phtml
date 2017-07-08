@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="full-screen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>才府服务</title>
+    <style>
+        body{
+            margin: 0px;padding: 0px;
+            background: #efeff4;
+        }
+        .header{
+            position: fixed;
+            left: 0px;top:0px;
+            height: 54px;
+            width: 100%;
+            text-align: center;
+            color:#FFFFFF;
+            background: #105070;
+            line-height: 54px;
+        }
+        .header a{
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            color:#fff;
+            font-size: 15px;
+            text-decoration: none;
+
+        }
+        .header span{
+            text-align: center;
+            display: block;
+            width: 100%;
+            font-size: 19px;
+            padding-top: 8px;
+        }
+        .header a .back-q{
+            display: inline-block;
+            width: 12.5px;
+            height: 20px;
+            background: url("<?php echo STATIC_DOMAIN;?>/images/checkService/back-q.png") no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+            left: -2px;
+            top: 4px;
+        }
+        .ser-prod-top{
+            margin-top: 45px;
+        }
+        .ser-prod >img{
+            width:100%;
+        }
+        .content{
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .content p>img{
+            width: 35px;
+            height: 35px;
+            background-size: 100% 100%;
+        }
+        .content .title{
+            font-size: 14px;
+            margin-top: -10px;
+            color:#000;
+        }
+        .content .p{
+            width: 90%;
+            margin: 0px auto;
+            font-size: 12px;
+            color:#666;
+            line-height: 18px;
+            margin-top: -5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<?php if($version>='3.5'){?>
+<div class="header">
+    <a href="/fanhui"><i class="back-q"></i>返回</a>
+    <span>才府服务</span>
+</div>
+<?php }?>
+<div class="ser-prod <?php if($version>='3.5'){?> ser-prod-top<?php }?>">
+    <img src="<?php echo STATIC_DOMAIN;?>/images/checkService/qa1.jpg" alt="">
+</div>
+<div class="content">
+    <p>  <img src="<?php echo STATIC_DOMAIN;?>/images/checkService/doorman.png" alt=""></p>
+    <p class="title">在线咨询</p>
+    <p class="p">每天9:00--24:00，才府小管家在线为您提供活动、订单咨询、售后保障等贴心服务@才府小管家</p>
+</div>
+<div class="content">
+    <p>  <img src="<?php echo STATIC_DOMAIN;?>/images/checkService/qa.png" alt=""></p>
+    <p class="title">品质管理</p>
+    <p class="p">“传承优秀 宁缺毋滥”是我们的经营宗旨，如果您对我们有好的建议，或者有合作需求，欢迎致电13012888193，我们将竭诚为您提供优质的产品和服务，让我们共同携手、精诚合作、共创辉煌！</p>
+</div>
+</body>
+</html>

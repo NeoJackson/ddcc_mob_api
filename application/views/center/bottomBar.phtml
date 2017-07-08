@@ -1,0 +1,39 @@
+<div class="con-time">
+    <div class="fl"><?php echo $val['add_time'];?></div>
+    <?php if(in_array($val['feed_type'],array(1,3,4)) || ($val['feed_type']==9 && isset($val['content_type']) && $val['content_type']==1)){?>
+        <div class="fr show_operation_btn"></div>
+        <div class="layout-box more-fun hide operation_btn">
+            <a class="son-box d-block <?php if(isset($val['is_like']) && $val['is_like']){?>disable"<?php }else{?>" onclick="like(this,2)"<?php }?> data-type="<?php echo $val['feed_type'];?>" data-id="<?php echo $val['id'];?>">
+                <i class="font-ico agree-ico"></i><?php if(isset($val['is_like']) && $val['is_like']){echo'已喜欢';}else{ echo'喜欢';}?>
+            </a>
+            <a class="son-box d-block list_operation_btn" data-sendtype="2" data-type="<?php echo $val['feed_type'];?>" data-objid="<?php echo $val['id'];?>" data-replyuid="<?php echo $val['user']['uid'];?>">
+                <i class="font-ico comment-ico"></i>评论
+            </a>
+            <a class="son-box d-block list_operation_btn" data-sendtype="3" <?php if($val['feed_type']==9){echo 'data-type="'.$val['type'].'" data-objid="'.$val['obj_id'].'" data-sharedid="'.$val['id'].'"';}else{echo 'data-type="'.$val['feed_type'].'" data-objid="'.$val['id'].'"';}?>">
+                <i class="font-ico share-ico"></i>分享
+            </a>
+            <a class="son-box d-block list_reward_btn" data-type="<?php echo $val['feed_type'];?>" data-objid="<?php echo $val['id'];?>">
+                <i class="font-ico rewards-ico"></i>打赏
+            </a>
+        </div>
+    <?php }?>
+</div>
+
+<?php if(in_array($val['feed_type'],array(1,3,4)) || ($val['feed_type']==9 && isset($val['content_type']) && $val['content_type']==1)){?>
+    <?php if((isset($val['is_like']) && $val['is_like']) || (isset($val['like_list']['list']) && $val['like_list']['list'])){?>
+        <div class="like-box layout-box" <?php if($val['like_num'] > 5){?>onclick="location.href='/center/likeList?type=<?php echo $val['feed_type'];?>&obj_id=<?php echo $val['id'];?>'"<?php }?>>
+            <div class="son-box">
+                <?php if(isset($val['is_like']) && $val['is_like'] && isset($val['like_list']['list']) && !$val['like_list']['list']){?>
+                    <span class="blue"><i class="font-ico agree-ico blue"></i>我喜欢</span>
+                <?php }else{?>
+                    <span><i class="font-ico blue agree-ico"></i><?php if(isset($val['is_like']) && $val['is_like']){?>我和<?php }?><?php if(isset($val['like_list']['list']) && $val['like_list']['list']){?><?php foreach($val['like_list']['list'] as $key_s=>$val_s){?><?php if($key_s == count($val['like_list']['list']) - 1 ){?><a class="blue" href="/<?php echo $val_s['did'];?>"><?php echo $val_s['nick_name'];?></a><?php }else{?><a class="blue" href="/<?php echo $val_s['did'];?>"><?php echo $val_s['nick_name'];?>、</a><?php }?><?php }?><?php }?><?php if($val['like_num']>5){?>等<?php echo $val['like_num'];?>人<?php }?>喜欢</span>
+                <?php }?>
+            </div>
+            <?php if($val['like_num'] > 5){?>
+                <div class="right-btn">
+                    <a class="font-ico right-ico"></a>
+                </div>
+            <?php }?>
+        </div>
+    <?php }?>
+<?php }?>

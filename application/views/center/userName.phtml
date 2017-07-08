@@ -1,0 +1,5 @@
+<?php if(isset($nav_on) && $nav_on == 'person_home'){?>
+<?php }else{?>
+    <a class="user-name txt-cut blue font-18" href="/user/<?php echo $val['user']['uid'];?>"><?php echo $val['user']['nick_name'];?></a>
+<?php }?>
+

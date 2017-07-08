@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/artDialog.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/lazyload.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/operation_new.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/common.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/bridge.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/hammer.js"></script>
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/topic_base.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo STATIC_DOMAIN;?>/css/checkService.css?v=<?php echo STATIC_FILE_VERSION;?>">
+    <script>
+        window.$userInfo = <?php if(isset($user)){echo json_encode($user);}else{echo json_encode(array());}?>;
+    </script>
+    <title><?php if(isset($page_title)){echo $page_title;}?></title>
+</head>
+<body>
+<div class="page">
+    <div class="con">
+        <p class="tit">
+            <span class="title-bold"><?php echo $blog['title'];?></span>
+        </p>
+        <div class="sub-title layout-box mt10 gray-d">
+            <a href="/user/<?php echo $blog['uid'];?>">
+                <img class="avatar-35 mr10" src="<?php echo Common::show_img($blog['avatar'],1,70,70);?>">
+                <?php if(isset($blog['ico_type'])&&$blog['ico_type']){?><i class="<?php echo $blog['ico_type'];?>"></i><?php }?>
+            </a>
+            <div class="son-box">
+                <span class="nick-name"><?php echo $blog['nick_name'];?></span>
+                    <span class="other-info">
+                        <?php echo $blog['add_time'];?> &nbsp;&nbsp;[阅读]<?php echo $blog['view_num'];?><?php if($blog['type']==0){?>[原创]<?php }else{?>[转载]<?php }?>
+                    </span>
+            </div>
+        </div>
+        <div class="content-area">
+            <?php echo $blog['content'];?>
+        </div>
+        <?php if(isset($user)&&$blog['uid'] != $user['uid']){ ?>
+        <div class="foot-info mt15 fz15 clear">
+            <a class="report-btn" href="/jubao/type/3/id/<?php echo $blog['id'];?>"><div class="f-r gray">举报</div></a>
+        </div>
+        <?php }?>
+        <div class="button-area mt15">
+            <i class="comment" onclick='location.href="/comment/token/<?php echo $token?>/type/3/id/<?php echo $blog['id'];?>/replyuid/<?php echo $blog['uid'];?>/replyid/0"'></i>
+            <i class="reward" onclick='location.href="/dashang/token/<?php echo $token?>/type/3/id/<?php echo $blog['id'];?>"'></i>
+            <?php if(!$blog['is_like']){?>
+                <i class="like like_action" data-type="3" data-id="<?php echo $blog['id'];?>" onclick="like(this,1)"></i>
+            <?php }else{?>
+                <i class="like on"></i>
+            <?php }?>
+        </div>
+        <!-- 打赏 -->
+        <?php include_once VIEWS_PATH . "/public/reward.phtml";?>
+        <!-- 喜欢 -->
+        <div class="like_user_more">
+            <?php include_once VIEWS_PATH . "/center/likeUser.phtml";?>
+        </div>
+        <!-- 评论 -->
+        <?php include_once VIEWS_PATH . "/public/comment.phtml";?>
+    </div>
+</div>
+</body>
+</html>

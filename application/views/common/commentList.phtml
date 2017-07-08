@@ -1,0 +1,61 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="header">
+    <div class="tiezi_toptar">
+        <ul>
+            <li class="tb_btn btn1"><a href="/fanhui"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/top-btn1-1.png" id="img1"></a></li>
+            <li class="top_title">评论</li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+<div class="comment_all_list">
+    <?php if($commentList['list']){?>
+        <?php foreach($commentList['list'] as $key=>$val){?>
+            <div class="pl_list">
+                <div class="pl_l">
+                    <div class="angel_box" onclick="location.href='/user/<?php echo $val['user']['uid'];?>'">
+                        <img class='ds_photo' src="<?php echo Common::show_img($val['user']['avatar'],1,80,80);?>">
+                        <i class="<?php echo $val['user']['ico_type'];?>"></i>
+                    </div>
+                </div>
+                <div class="pl_r">
+                    <div class="pl_r_con">
+                        <div class="pl_r_s">
+                            <p class="name" onclick="location.href='/user/<?php echo $val['user']['uid'];?>'"><?php echo $val['user']['nick_name'];?></p>
+                            <p class="time"><?php echo $val['add_time'];?></p>
+                            <a class="delete" href="/comment<?php if(isset($user)&&$val['uid']==$user['uid']){?>/cid/<?php echo $val['id']; ?><?php }?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $val['user']['nick_name'];?>">
+                                <?php if(isset($user)&&$val['uid']==$user['uid']){?>
+                                    <img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn3.png">
+                                <?php }elseif(isset($user)&&$val['uid']!=$user['uid']){?>
+                                    <img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn4.png">
+                                <?php }?>
+                            </a>
+                        </div>
+                        <div class="pl_r_x">
+                            <p><?php echo Common::showEmoticon($val['content'],0);?></p>
+                            <?php if($val['reply_list']){?>
+                                <?php foreach($val['reply_list'] as $r_key=>$r_val){?>
+                                    <?php if($r_key<3){?>
+                                        <p onclick='event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href="/comment/cid/<?php echo $r_val['id']; ?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $r_val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $r_val['user']['nick_name'];?>"'>
+                                            <span class="blue_r" onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href='/user/<?php echo $r_val['user']['uid'];?>'"><?php echo $r_val['user']['nick_name'];?></span>回复<span class="blue_r" onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href='/user/<?php echo $r_val['reply_user']['uid'];?>'"><?php echo $r_val['reply_user']['nick_name'];?></span><?php echo Common::showEmoticon($r_val['content'],0);?>
+                                        </p>
+                                    <?php }?>
+                                <?php } ?>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php }?>
+    <?php }?>
+</div>
+</div>
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+    //监听评论后触发请求局部刷新评论
+    function refreshComment(){
+        location.reload();
+    }
+</script>

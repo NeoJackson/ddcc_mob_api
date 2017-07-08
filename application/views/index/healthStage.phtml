@@ -1,0 +1,168 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="scroll scroll-y" id="scroll">
+    <div id="banner" class="banner2"></div>
+    <div class="peo-con1">
+        作为中国土生土长的传统医学，不得不承认中医算得上是一朵艺术奇葩。尽管随着西医的普及，中医越来越不受重视，但它依然以它传奇的方式在民间屹立不倒。中医的地位，是牢不可破的。
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/y-pic.png">
+    </div>
+    <div class="peo-con">
+        中医诞生于原始社会，其理论来源于对医疗经验的总结及中国古代的阴阳五行思想，在 春秋战国时期便已基本形成。中医承载着中国古代人民同疾病作斗争的经验和理论知识，是在古代朴素的唯物论和自发的辨证法思想指导
+        下，通过长期医疗实践逐步形成 并发  展成的医学理论体系，对汉字文化圈国家的医学文化影响也是相当深远的。
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/y-ye.png">
+    </div>
+    <div class="peo-con">
+        两千多年前，经典中医著作《黄帝内经》的问世，奠定了中医学的基础。许多中国传统医学相关的理论、诊   断法、治疗方法等至今仍可在此书中找到根源。除此之外，还有《神农本草经》、《伤寒杂病论》、《难经》、《本草纲目》等皆记述了诸多医理及本草功效等。
+    </div>
+    <div class="peo-con">
+        中医的治疗手法有很多，如中药、针灸、推拿、按摩、拔罐、气功、食疗等。不同的方式方法针对不同的病症，但都是从根源上进行调理，效果也各有千秋。
+    </div>
+    <div class="peo-img" style="width: 100%;padding: 0;">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/zhongyi_03.png">
+    </div>
+
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/yangsheng1.png">
+    </div>
+
+    <div class="peo-con">
+        中药多以草本植物为主，也有部分动物药、矿物药及化学、生物制品类药物。中药的疗效较为缓慢，需要一个长期坚持的过程。除此之外中药的煎煮有一定的方式方法，清洗、浸泡、煎煮缺一不可，器材的选择，最好以砂锅、瓦罐为好，忌用铜、铁器皿等。
+
+    </div>
+
+    <div class="peo-title">
+        <i>
+        </i>
+    </div>
+    <?php if(isset($martialSpecialList) && $martialSpecialList) {
+        foreach($martialSpecialList as $key => $val) {
+            if($key==0){?>
+                <div class="peo-personal">
+                    <div class=" head-portrait" style="background: #fff">
+                        <div class="head-portrait-con">
+                            <img style="width: 100%;height: 100%;" src="<?php echo Common::show_img($val['icon'],2,300,300);?>">
+                        </div>
+                    </div>
+                    <div class="deteil">
+                        <p class="cir" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'"><?php echo $val['name'];?></p>
+                        <p class="fansi-con">成员:<?php echo $val['user_num'];?> <span></span> 帖子:<?php echo $val['topic_num'];?></p>
+                        <p class="fansi-con"><?php echo $val['intro'];?></p>
+                        <span class="enter" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'">进入驿站</span>
+                    </div>
+                </div>
+        <?php }}?>
+    <?php }?>
+    <div class="peo-title1">
+        <i>
+        </i>
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-z.png">
+    </div>
+    <div class="peo-con">
+        针灸是针法和灸法的总称。针法是指在中医理论的指导下把针具按照一定的角度刺入患者体内，运用捻转与提插等针刺手法来对人体特定部位进行刺激从而 达到治疗疾病的目的。灸法则是以预制的灸炷或灸草在体表一定的穴位上烧灼、熏熨，利用热的刺激来预防和治疗疾病。通常以艾草最为常用，故而称为艾灸，另外还有 隔药灸、柳条灸、灯芯灸、桑枝灸等方法。
+    </div>
+    <div class="peo-title">
+        <i>
+        </i>
+    </div>
+    <?php if(isset($martialSpecialList) && $martialSpecialList) {
+        foreach($martialSpecialList as $key => $val) {
+            if($key==2){?>
+                <div class="peo-personal">
+                    <div class=" head-portrait" style="background: #fff">
+                        <div class="head-portrait-con">
+                            <img style="width: 100%;height: 100%;" src="<?php echo Common::show_img($val['icon'],2,300,300);?>">
+                        </div>
+                    </div>
+                    <div class="deteil">
+                        <p class="cir" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'"><?php echo $val['name'];?></p>
+                        <p class="fansi-con">成员:<?php echo $val['user_num'];?> <span></span> 帖子:<?php echo $val['topic_num'];?></p>
+                        <p class="fansi-con"><?php echo $val['intro'];?></p>
+                        <span class="enter" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'">进入驿站</span>
+                    </div>
+                </div>
+            <?php }}?>
+    <?php }?>
+    <div class="peo-img2">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-tui_03.png">
+    </div>
+    <div class="peo-con">
+        推拿是一种非药物的自然疗法，通常是指用手在人体上按经络、穴位，用推、拿、提、捏、揉等手法进行治疗，以达到疏通经络、推行气血、扶伤止痛、祛邪扶正、调和阴阳的疗效的一种方式。
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-b.png">
+    </div>
+    <div class="peo-title2">
+        <i>
+        </i>
+    </div>
+    <div class="peo-con">
+        拔罐疗法的历史相当悠久，早在成书于西汉时期的帛书《五十二病方》中就有关于“角法”的记载，角法就是类似于后世的火罐疗法。拔罐主是以罐为工具，利用燃火、抽气等方法产 生  负压，使之吸附于体表，造成局部瘀血，以达到通经活络、行气 活血、消肿止痛、祛风散寒等作用的疗法。
+
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-a.png">
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-an.png">
+    </div>
+    <div class="peo-con">
+        按摩是一种物理治疗方法，它是以中医的脏腑、经络学说为理论基础，并结合西医的解剖和病理诊断，而用手法作用于人体体表的特定部位以调节机体生理、病理状况，达到理疗目的的方法。
+    </div>
+    <div class="peo-title3">
+        <i>
+        </i>
+    </div>
+    <div class="peo-img">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-q.png">
+    </div>
+    <div class="peo-con">
+        在我国古代，关于气功的文献资料浩如烟   海，在道家、佛医、儒医、医家书记中皆有诸多相关记载。气功主要是讲究调整自然之气和先天之气和谐的关系，通过   调息，调形，调心为手段，以达到强身健体、防病治病、延年益寿为目的的一种锻炼身心的方法。
+
+    </div>
+    <div class="peo-img-q">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/pic-s.png">
+    </div>
+    <div class="peo-con">
+        食疗是指在中医理论指导下利用食物的特性来调节机体功能，使其获得健康或愈疾防病的一种方法，也就是通过食物的营养作用以调理身体、疗疾祛病的一种方式。
+    </div>
+    <div class="peo-title">
+        <i>
+        </i>
+    </div>
+    <?php if(isset($martialSpecialList) && $martialSpecialList) {
+        foreach($martialSpecialList as $key => $val) {
+            if($key==1){?>
+                <div class="peo-personal">
+                    <div class=" head-portrait" style="background: #fff">
+                        <div class="head-portrait-con">
+                            <img style="width: 100%;height: 100%;" src="<?php echo Common::show_img($val['icon'],2,300,300);?>">
+                        </div>
+                    </div>
+                    <div class="deteil">
+                        <p class="cir" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'"><?php echo $val['name'];?></p>
+                        <p class="fansi-con">成员:<?php echo $val['user_num'];?> <span></span> 帖子:<?php echo $val['topic_num'];?></p>
+                        <p class="fansi-con"><?php echo $val['intro'];?></p>
+                        <span class="enter" onclick="location.href='/yizhan/sid/<?php echo $val['sid'];?>'">进入驿站</span>
+                    </div>
+                </div>
+            <?php }}?>
+    <?php }?>
+    <!--<div class="review">
+        <span></span>
+        往期回顾
+        <span></span>
+    </div>
+    <div class="peo-img1"onclick="location.href='/index/martialSpecial'">
+        <img src="<?php echo STATIC_DOMAIN;?>/images/specialColumn/wushu.png">
+        <p>中华武术</p>
+        <span>中华武术是一种以绝对是发送到尽快发货时间快递费到付</span>
+    </div>-->
+</div>
+</body>
+</html>

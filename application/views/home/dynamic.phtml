@@ -1,0 +1,15 @@
+<?php if(isset($dynamic) && $dynamic){ $val=$dynamic;?>
+    <?php if($val['feed_type']==1){?>
+        <?php include VIEWS_PATH."/center/mood.phtml";?>
+    <?php }elseif($val['feed_type']==4){?>
+        <?php include VIEWS_PATH."/center/topic.phtml";?>
+    <?php }elseif($val['feed_type']==5){?>
+        <?php include VIEWS_PATH."/center/stage.phtml";?>
+    <?php }elseif($val['feed_type']==9&&$val['content_type']==1){?>
+        <?php if($val['type']==1){?>
+            <?php include VIEWS_PATH."/center/moodShare.phtml";?>
+        <?php }elseif($val['type']==4){?>
+            <?php include VIEWS_PATH."/center/topicShare.phtml";?>
+        <?php }?>
+    <?php }?>
+<?php }?>

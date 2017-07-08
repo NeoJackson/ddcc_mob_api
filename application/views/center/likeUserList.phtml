@@ -1,0 +1,18 @@
+<?php if(isset($like_list['list']) && $like_list['list']){?>
+    <div class="tz_zan_x clearfix">
+        <ul>
+            <?php foreach($like_list['list'] as $key=>$val){?>
+                <li>
+                    <a href="/user/<?php echo $val['uid'];?>">
+                        <div class="angel_box">
+                            <img class="ds_photo" src="<?php echo Common::show_img($val['avatar'],1,60,60);?>">
+                            <i class="<?php echo $val['ico_type'];?>"></i>
+                        </div>
+                    </a>
+                </li>
+            <?php }?>
+            <li><a href="/mylike/id/<?php echo $like_list['id'];?>/type/<?php echo $like_list['feed_type'];?>&token=<?php echo $token;?>"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-photo-more.png"></a></li>
+        </ul>
+    </div>
+<?php }?>
+

@@ -1,0 +1,61 @@
+<?php if(isset($stageInfo['topic_recommend_list']['list'])){
+        foreach($stageInfo['topic_recommend_list']['list'] as $key=>$v){?>
+            <div class="post-info" onclick="location.href='<?php echo $v['url']?>'">
+                <div class="pic-tit"><?php if($v['is_recommend']==1){?><span class="pic-g pigs">公告</span><?php }?><?php if($v['is_good']==1){?><span class="pic-j pigs">精</span><?php }?><?php if($v['is_top']==1){?><span class="pic-d pigs">置顶<?php }?></span><?php echo $v['title'];?></div>
+                <?php if($v['img_src']!=''){?>
+                    <ul class="pic-ls">
+                        <?php foreach($v['img_src'] as $k=> $v1){?>
+                            <?php if($k< 3){?>
+                                <li><img src="<?php echo Common::show_img($v1,4,160,160);?>"></li>
+                            <?php }}?>
+                    </ul>
+                <?php }?>
+                <div class="bot text-small gray">
+                    <span class="fl"><?php echo $v['user']['nick_name'];?> <?php echo $v['add_time'];?></span>
+                    <span class="fr">阅读(<?php echo $v['view_num'];?>)</span>
+                </div>
+            </div>
+        <?php }
+    }?>
+    <?php if(isset($stageInfo['topic_top_list']['list'])){
+        foreach($stageInfo['topic_top_list']['list'] as $key=>$v){?>
+            <div class="post-info" onclick="location.href='<?php echo $v['url']?>'">
+                <div class="pic-tit"><?php if($v['is_recommend']==1){?><span class="pic-g">公告</span><?php }?><?php if($v['is_good']==1){?><span class="pic-j">精</span><?php }?><?php if($v['is_top']==1){?><span class="pic-d">置顶<?php }?></span><?php echo $v['title'];?></div>
+                <?php if($v['img_src']!=''){?>
+                    <ul class="pic-ls">
+                        <?php foreach($v['img_src'] as $k=> $v1){?>
+                            <?php if($k< 3){?>
+                                <li><img src="<?php echo Common::show_img($v1,4,160,160);?>"></li>
+                            <?php }}?>
+                    </ul>
+                <?php }?>
+                <div class="bot text-small gray">
+                    <span class="fl"><?php echo $v['user']['nick_name'];?> <?php echo $v['add_time'];?></span>
+                    <span class="fr">阅读(<?php echo $v['view_num'];?>)</span>
+                </div>
+            </div>
+        <?php }
+    }?>
+    <?php if($stageInfo['topic_list']['list']){
+        foreach($stageInfo['topic_list']['list'] as $key=>$v){?>
+            <div class="post-info" onclick="location.href='<?php echo $v['url']?>'">
+                <div class="pic-tit"><?php if($v['is_recommend']==1){?><span class="pic-g">公告</span><?php }?><?php if($v['is_good']==1){?><span class="pic-j">精</span><?php }?><?php if($v['is_top']==1){?><span class="pic-d">置顶<?php }?></span><?php echo $v['title'];?></div>
+                <?php if($v['img_src']!=''){?>
+                    <ul class="pic-ls">
+                        <?php foreach($v['img_src'] as $k=> $v1){?>
+                            <?php if($k< 3){?>
+                                <li><img src="<?php echo Common::show_img($v1,4,160,160);?>"></li>
+                            <?php }}?>
+                    </ul>
+                <?php }?>
+                <div class="bot text-small gray">
+                    <span class="fl"><?php echo $v['user']['nick_name'];?> <?php echo $v['add_time'];?></span>
+                    <span class="fr">阅读(<?php echo $v['view_num'];?>)</span>
+                </div>
+            </div>
+        <?php }
+    }?>
+
+<?php if(!$stageInfo['topic_recommend_list']['list']&&!$stageInfo['topic_top_list']['list']&&!$stageInfo['topic_list']['list']){?>
+    <div class="p-empty-con"><i class="blue warn-ico font-ico"></i>暂无帖子。</div>
+<?php }?>

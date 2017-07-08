@@ -1,0 +1,36 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div class="header">
+    <div class="tiezi_toptar">
+        <ul>
+            <li class="tb_btn btn1"><a href="/fanhui"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/top-btn1-1.png" id="img1"></a></li>
+            <li class="top_title">购买记录</li>
+        </ul>
+    </div>
+</div>
+<div class="scroll" id="scroll">
+    <div class="comment_all_list">
+        <?php foreach($buyList['list'] as $v){?>
+            <div class="ds_list clearfix">
+                <li class="ds_left left">
+                    <div class="angel_box">
+                        <a href="/user/<?php echo $v['user_info']['uid'];?>">
+                            <img src="<?php echo Common::show_img($v['user_info']['avatar'],4,160,160);?>" class="ds_photo">
+                            <i class="<?php echo $v['user_info']['ico_type'];?>"></i>
+                        </a>
+                    </div>
+                    <span><?php echo $v['user_info']['nick_name'];?></span>
+                </li>
+                <li class="ds_right right"><span class="number">购买<?php echo $v['num'];?>件</span><span class="time"><?php echo $v['add_time'];?></span></li>
+            </div>
+        <?php }?>
+    </div>
+</div>
+<script>
+    var scrollable = document.getElementById("scroll");
+    new ScrollFix(scrollable);
+    //监听评论后触发请求局部刷新评论
+    function refreshComment(){
+        location.reload();
+    }
+</script>

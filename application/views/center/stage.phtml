@@ -1,0 +1,20 @@
+<section>
+    <div class="top-user-text">
+        <?php include VIEWS_PATH."/center/userName.phtml";?>
+        <span class="gray"><?php if($val['uid']==$val['user']['uid']){echo'创建';}else{echo'加入';}?>了驿站</span>
+    </div>
+    <div class="" onclick="location.href='/s/<?php echo $val['sid'];?>?token='+token">
+        <div class="d-stage-box layout-box">
+            <div class="left-img">
+                <?php if($val['type']==2){?>
+                <span class="commerce-i">商</span>
+                <?php }?>
+                <img class="b-radius-2" data-src="<?php echo Common::show_img($val['icon'],2,100,100,1);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)" width="50" height="50">
+            </div>
+            <div class="son-box">
+                <p class="txt-cut"><?php echo $val['name'];?></p>
+                <p class="gray"><?php echo $val['intro'];?></p>
+            </div>
+        </div>
+    </div>
+</section>

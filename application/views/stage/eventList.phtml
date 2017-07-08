@@ -1,0 +1,104 @@
+<?php include_once VIEWS_PATH."/stage/head.phtml";?>
+<body class="gary-bg">
+<div class="con-center">
+    <div class="new-com-con">
+        <div class="head">
+            <i class="rq-ico"></i>
+            <div class="con">
+                <a class="pho" href="/yzzl/<?php echo I_DOMAIN?>/stage/manage?sid=<?php echo $stageInfo['sid']?>&token=<?php echo $token;?>"><img src="<?php echo IMG_DOMAIN ?><?php echo $stageInfo['icon'];?>"></a>
+                <a class="name"><?php echo $stageInfo['name'];?><?php if($stageInfo['type']==2){?><em>服务</em><?php }?></a>
+                <p class="text-small"><span>成员：<?php echo $stageInfo['user_num'];?></span><span>帖子：<?php echo $stageInfo['topic_num'];?></span></p>
+            </div>
+        </div>
+
+        <nav class="nav-ope">
+            <div class="top-box half-bor-bottom">
+                <span class="fl"><em></em>成员</span>
+                <div class="fr">
+                    <?php if($join_info && $user){?>
+                        <?php if($join_info == 2){?>
+                            <a class="fans-btn cancel-btn"><i></i>待审核</a>
+                        <?php }elseif($join_info == 1){?>
+                            <!--                    <a class="fans-btn submit-btn hide" href="/chat/stage/--><?php //echo $stageInfo['sid']?><!--"><i class="font-ico send-letter"></i>聊天</a>-->
+                            <a class="fans-btn submit-btn" href="/publishTopic/<?php echo $stageInfo['sid']?>"><i class="font-ico writting-ico"></i>发帖</a>
+                        <?php }?>
+                    <?php }else{ ?>
+                        <a class="fans-btn add-btn" id="addStage"><i></i>加入</a>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="member-ls half-bor-bottom">
+                <?php foreach($memberList as $v){?>
+                    <a href="/user/<?php echo $v['uid']?>"><img src="<?php echo $v['avatar']?>">
+                        <?php if($version >= '2.3'){?>
+                        <i class="<?php echo $v['ico_type'];?>"></i>
+                        <?php }?>
+                    </a>
+                <?php }?>
+                <?php if($memberNum > 13){?>
+                    <a href="/zxcylb/<?php echo I_DOMAIN?>/stage/member?sid=<?php echo $stageInfo['sid'];?>"><img src="<?php echo STATIC_DOMAIN;?>/images/mem_more.png"></a>
+                <?php }?>
+            </div>
+
+            <script>
+                function changeHeight() {
+                    var photoList = document.querySelectorAll('.member-ls a');
+                    for(var i = 0; i < photoList.length;i++) {
+                        photoList[i].children[0].height = Math.round(($('.member-ls').width()-66)/7);
+                    }
+                }
+                $(document).ready(function(){
+                    changeHeight();
+                    window.addEventListener('resize', function(){
+                        changeHeight();
+                    },true);
+                });
+            </script>
+        </nav>
+        <nav class="nav-dy-tit layout-box half-bor-bottom">
+            <a class="son-box" href="/s/<?php echo $stageInfo['sid'];?>?token=<?php echo $token;?>"><span>看帖</span></a>
+            <a class="son-box" href="/stage/event?sid=<?php echo $stageInfo['sid'];?>&token=<?php echo $token;?>"><span>精华</span></a>
+            <a class="son-box on" href="/stage/eventList?sid=<?php echo $stageInfo['sid'];?>&token=<?php echo $token;?>"><span>信息</span></a>
+        </nav>
+        <div class="new-ls">
+            <?php if($stageInfo['new_event']){?>
+                <?php foreach($stageInfo['new_event'] as $v){?>
+                    <a href="<?php echo $v['url']?>" class="half-bor-bottom"><?php if($v['type'] ==1){?><em>活动</em><?php }elseif($v['type'] ==2){?><em>推广</em><?php }elseif($v['type'] ==3){?><em>培训</em><?php }elseif($v['type'] ==4){?><em>商品</em><?php }elseif($v['type'] ==5){?><em>投票</em><?php }?><?php echo $v['title'];?></a>
+                <?php }}?>
+        </div>
+        <div class="post-ls data_list">
+            <?php if($stageInfo['list']) {?>
+                <?php include_once VIEWS_PATH."/stage/businessList.phtml";?>
+            <?php }elseif(!$stageInfo['list']&&(isset($stageInfo['new_event'])&&!$stageInfo['new_event'])){?>
+                <div class="p-empty-con"><i class="blue warn-ico font-ico"></i>暂无商家信息。</div>
+            <?php }?>
+        </div>
+        <?php if(isset($stageInfo['size']) && $stageInfo['size'] > 10) {?>
+            <div class="footer-loading" id="loadMore"><img src="<?php echo STATIC_DOMAIN;?>/images/loading.gif" height="35" width="35"></div>
+            <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/contentloader.js"></script>
+            <script>
+                $(document).ready(function(){
+                    var opts = {
+                        loadType:1,//1、页面到达底部自动加载 2、点击更多进行加载
+                        isShowPage:false,//是否显示分页
+                        loadNumBeforeShowPage:6,//显示分页前的加载次数
+                        loadMoreBtn:$('#loadMore'),//加载更过按钮或者loading图标
+
+                        pageSize:10,
+                        pageNum:2,
+                        sid:<?php echo $stageInfo['sid'];?>,
+                        size:<?php echo $stageInfo['size'];?>,
+                        list:$(".data_list"),
+                        template:function(data){
+                            return data.data;
+                        }
+                    }
+                    $.fn.loadMore('/stage/getEventMore',{page:opts.pageNum,size:opts.pageSize,sid:opts.sid,token:token,type:0},opts);
+                });
+            </script>
+        <?php }?>
+        <div class="back-top font-ico up-ico back_top" title="返回顶部" style="display: block;"></div>
+    </div>
+</div>
+</body>
+</html>

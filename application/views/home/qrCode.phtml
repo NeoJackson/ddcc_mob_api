@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/active_2.0.css" type="text/css" rel="stylesheet">
+    <title>二维码</title>
+</head>
+<body style="background: #d2eefb;">
+<div class="qr-box">
+    <div class="head">
+        <div class="con">
+            <?php if($type==1){?>
+                <a><img src="<?php echo IMG_DOMAIN.$user['avatar']?>"></a>
+                <p><?php echo $user['nick_name'];?></p>
+            <?php }elseif($type==2){?>
+                <a><img src="<?php echo IMG_DOMAIN.$stageInfo['icon']?>"></a>
+                <p><?php echo $stageInfo['name'];?>驿站</p>
+            <?php }?>
+        </div>
+    </div>
+    <?php if($type==1){?>
+        <div class="qr-b"><img src="<?php echo $qrCodeImg;?>"></div>
+        <p class="bot">扫一扫上面的二维码图案，关注我的书房</p>
+    <?php }elseif($type==2){?>
+        <div class="qr-b"><img src="<?php echo $qrCodeImg;?>"></div>
+        <p class="bot">扫一扫上面的二维码图案，加入</p>
+    <?php }?>
+</div>
+<div class="caifu-bg <?php if($type==1){?>room<?php }elseif($type==2){?>stage<?php }?>"></div>
+</body>
+</html>

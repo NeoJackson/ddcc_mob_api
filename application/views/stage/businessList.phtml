@@ -1,0 +1,19 @@
+<?php if($stageInfo['list']) {?>
+<?php foreach($stageInfo['list'] as $v){?>
+   <div class="post-info" onclick="location.href='<?php echo $v['url']?>'">
+       <div class="pic-tit"><?php if($v['is_recommend']==1){?><span class="pic-g">公告</span><?php }?><?php if($v['is_top']==1){?><span class="pic-d">置顶</span><?php }?><?php if($v['is_good']==1){?><span class="pic-j">精</span><?php }?><a><?php if($v['event_type'] ==1){?><em>活动</em><?php }elseif($v['event_type'] ==2){?><em>推广</em><?php }elseif($v['event_type'] ==3){?><em>培训</em><?php }elseif($v['event_type'] ==4){?><em>商品</em><?php }elseif($v['event_type'] ==5){?><em>投票</em><?php }?></a>
+           <?php echo $v['title'];?></div>
+       <?php if($v['cover']!=''){?>
+       <ul class="pic-ls">
+           <?php foreach($v['cover'] as $k=> $v1){?>
+               <?php if($k< 3){?>
+               <li><img src="<?php echo Common::show_img($v1,4,160,160);?>"></li>
+           <?php }}?>
+       </ul>
+       <?php }?>
+       <div class="bot text-small gray">
+           <span class="fl"><?php echo $v['user']['nick_name'];?> <?php echo Common::show_time($v['add_time']);?></span>
+           <span class="fr">阅读(<?php echo $v['view_num'];?>)</span>
+       </div>
+   </div>
+<?php }}?>

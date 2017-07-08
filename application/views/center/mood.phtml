@@ -1,0 +1,32 @@
+<section>
+    <div class="top-user-text">
+        <?php include VIEWS_PATH."/center/userName.phtml";?>
+        <span class="gray">发表了心境</span>
+    </div>
+    <div class="">
+        <?php echo $val['content'];?>
+        <?php if(isset($val['img']) && $val['img']){?>
+            <div class="dynamic-pic-list">
+                <ul class="list-ul">
+                    <?php foreach($val['img'] as $key_img=>$val_img){
+                        if($key_img<9){?>
+                            <li><img onclick="imgPopup(this)" data-imgsrc="<?php echo Common::show_img($val_img['img'],3);?>" data-src="<?php echo Common::show_img($val_img['img'],3,160,160,1);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)"></li>
+                        <?php }
+                    }?>
+                </ul>
+            </div>
+        <?php }?>
+        <?php if(isset($val['video'])){
+            foreach($val['video'] as $key_video=>$val_video){?>
+                <a class="layout-box video-box" href="<?php echo $val_video['v_url'];?>">
+                    <div class="fl">
+                        <img src="<?php echo $val_video['img_small'];?>" width="65" height="65">
+                    </div>
+                    <div class="son-box">
+                        <p class="tit"><?php echo $val_video['title'];?></p>
+                    </div>
+                </a>
+            <?php }
+        }?>
+    </div>
+</section>

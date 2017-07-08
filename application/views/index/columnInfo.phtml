@@ -1,0 +1,29 @@
+<?php include_once VIEWS_PATH."/public/commonHead.phtml";?>
+<body>
+<div>
+    <div class="column-content">
+        <?php echo $columnInfo['content'];?>
+    </div>
+    <div class="review-content">
+        <?php if(isset($reviewList) && $reviewList){?>
+            <div class="review">
+                <span></span>
+                <?php if($columnInfo['cate']==1){?>
+                更多先锋
+                <?php }else{?>
+                往期回顾
+                <?php }?>
+                <span></span>
+            </div>
+            <?php foreach($reviewList as $val){?>
+                <div class="peo-img1" onclick="location.href='<?php echo $val['url'];?>'">
+                    <img src="<?php echo IMG_DOMAIN.$val['review_cover'];?>">
+                    <p><?php echo $val['name'];?></p>
+                    <span><?php echo $val['intro'];?></span>
+                </div>
+            <?php }
+        }?>
+    </div>
+</div>
+</body>
+</html>

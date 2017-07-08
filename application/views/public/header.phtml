@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/artDialog.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/lazyload.min.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/operation_new.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/common.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/page/bridge.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/hammer.js"></script>
+    <!--
+     <link href="<?php echo STATIC_DOMAIN;?>/css/mobile-console.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="<?php echo STATIC_DOMAIN;?>/js/lib/mobile-console.min.js"></script>
+     -->
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style_2.0.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo STATIC_DOMAIN;?>/css/active_2.0.css" type="text/css" rel="stylesheet">
+    <script>
+        window.$userInfo = <?php if(isset($user)){echo json_encode($user);}else{echo json_encode(array());}?>;
+    </script>
+    <title><?php if(isset($page_title)){echo $page_title;}?></title>
+</head>

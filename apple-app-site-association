@@ -1,0 +1,11 @@
+{
+  "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "EP94F445E9.com.ddcc.caifu",
+                "paths": ["*"]
+            }
+        ]
+    }
+}

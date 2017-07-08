@@ -1,0 +1,49 @@
+ <ul class="comment-list comment_list mt20">
+            <?php if($commentList['list']){?>
+                <?php  if(isset($commentList) && $commentList){?>
+                    <?php foreach($commentList['list'] as $key=>$val){?>
+                        <li class="layout-box fz15 comment-li">
+                            <a class="avatar-box" href="/user/<?php echo $val['user']['uid'];?>">
+                                <img class="avatar-35 mr10" src="<?php echo Common::show_img($val['user']['avatar'],1,60,60);?>">
+                                <?php if(isset($val['user']['ico_type'])&&$val['user']['ico_type']){?><i class="<?php echo $val['user']['ico_type'];?>"></i><?php }?>
+                            </a>
+                            <div class="son-box">
+                                <div class="layout-box comment-box">
+                                    <div class="son-box">
+                                        <p><a class="blue-d font-size16" href="/user/<?php echo $val['user']['uid'];?>"><?php echo $val['user']['nick_name'];?></a></p>
+                                        <p class="fz12 time-color"><?php echo $val['add_time'];?></p>
+                                    </div>
+
+                                    <a href="/comment<?php if(isset($user)&&$val['uid']==$user['uid']){?>/cid/<?php echo $val['id']; ?><?php }?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $val['user']['nick_name'];?>"
+                                       class="comment-icon blue fz25 <?php echo isset($user)&&$val['uid']==$user['uid']?'del-icon':'comment_action'?>"></a>
+                                </div>
+                                <div class="text-area">
+                                    <?php echo Common::showEmoticon($val['content'],0);?>
+                                </div>
+                                <ul class="text-return">
+                                    <?php if($val['reply_list']){?>
+                                        <div class="top">
+                                            <?php foreach($val['reply_list'] as $r_key=>$r_val){?>
+                                                <?php if($r_key<3){?>
+                                                    <li onclick='location.href="/comment/cid/<?php echo $r_val['id']; ?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $r_val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $r_val['user']['nick_name'];?>"'
+                                                        class="<?php echo isset($user)&&$r_val['user']['uid']==$user['uid']?'del_comment':'comment_action'?>">
+                                                        <a onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;"
+                                                           href="/user/<?php echo $r_val['user']['uid'];?>" class="blue-d"><?php echo $r_val['user']['nick_name'];?></a>回复<a
+                                                            onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;" href="/user/<?php echo $r_val['reply_user']['uid'];?>"
+                                                            class="blue-d"><?php echo $r_val['reply_user']['nick_name'];?></a>：<?php echo $r_val['content'];?>
+                                                    </li>
+
+                                                <?php }?>
+                                            <?php } ?>
+                                            <?php if($val['reply_list']&&count($val['reply_list'])>3){?>
+                                                <div class="more more-in" onclick="location.href='<?php echo I_DOMAIN?>/common/commentList?id=<?php echo $obj_id;?>&type=<?php echo $type;?>&token=<?php echo $token;?>'">更多</div>
+                                            <?php }?>
+                                        </div>
+                                    <?php }?>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php }?>
+                <?php }?>
+            <?php }?>
+        </ul>

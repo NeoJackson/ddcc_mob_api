@@ -1,0 +1,79 @@
+<?php if($commentList['list']){?>
+    <?php foreach($commentList['list'] as $key=>$val){?>
+        <div class="pl_list">
+            <div class="pl_l">
+                <div class="angel_box" onclick="location.href='/user/<?php echo $val['user']['uid'];?>'">
+                    <img class='ds_photo' src="<?php echo Common::show_img($val['user']['avatar'],1,80,80);?>">
+                    <i class="<?php echo $val['user']['ico_type'];?>"></i>
+                </div>
+            </div>
+            <div class="pl_r">
+                <div class="pl_r_con">
+                    <div class="pl_r_s">
+                        <p class="name" onclick="location.href='/user/<?php echo $val['user']['uid'];?>'"><?php echo $val['user']['nick_name'];?></p>
+                        <p class="time"><?php echo $val['add_time'];?></p>
+                        <a class="delete" href="/comment<?php if(isset($user)&&$val['uid']==$user['uid']){?>/cid/<?php echo $val['id']; ?><?php }?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $val['user']['nick_name'];?>">
+                            <?php if(isset($user)&&$val['uid']==$user['uid']){?>
+                                <img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn3.png">
+                            <?php }elseif(isset($user)&&$val['uid']!=$user['uid']){?>
+                                <img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn4.png">
+                            <?php }?>
+                        </a>
+                    </div>
+                    <div class="pl_r_x">
+                        <p><?php echo Common::showEmoticon($val['content'],0);?></p>
+                        <?php if($val['reply_list']){?>
+                            <?php foreach($val['reply_list'] as $r_key=>$r_val){?>
+                                <?php if($r_key<3){?>
+                                    <p onclick='event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href="/comment/cid/<?php echo $r_val['id']; ?>/token/<?php echo $token?>/type/<?php echo $val['type'];?>/id/<?php echo $val['obj_id'];?>/replyuid/<?php echo $r_val['uid'];?>/replyid/<?php echo $val['id'];?>/nickname/<?php echo $r_val['user']['nick_name'];?>"'>
+                                        <span class="blue_r" onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href='/user/<?php echo $r_val['user']['uid'];?>'"><?php echo $r_val['user']['nick_name'];?></span>回复<span class="blue_r" onclick="event.stopPropagation?event.stopPropagation():event.cancelBubble=true;location.href='/user/<?php echo $r_val['reply_user']['uid'];?>'"><?php echo $r_val['reply_user']['nick_name'];?></span><?php echo Common::showEmoticon($r_val['content'],0);?>
+                                    </p>
+                                <?php }?>
+                            <?php } ?>
+                            <?php if($val['reply_list']&&count($val['reply_list'])>3){?>
+                                <p class="ds_jilu ds_record"><a href="<?php echo I_DOMAIN?>/common/commentList?id=<?php echo $obj_id;?>&type=<?php echo $type;?>&token=<?php echo $token;?>&version=<?php echo $version;?>">查看全部<?php echo count($val['reply_list']);?>条评论<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+                            <?php }?>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php }?>
+    <?php if($commentList['size']>3){?>
+        <p class="ds_jilu"><a href="<?php echo I_DOMAIN?>/common/commentList?id=<?php echo $obj_id;?>&type=<?php echo $type;?>&token=<?php echo $token;?>&version=<?php echo $version;?>">查看全部<?php echo $commentList['size'];?>条评论<img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie-btn2.png"></a></p>
+    <?php }?>
+<?php }else{?>
+    <!--无评论内容样式 st-->
+    <div class="pinglun_no"><img src="<?php echo STATIC_DOMAIN;?>/images/topic/tie_wu.png"></div>
+    <!--无评论内容样式 ed-->
+<?php }?>
+<script>
+    //监听评论后触发请求局部刷新评论
+    function refreshComment(){
+        $.ajax({
+            type:'post',
+            url:'/common/getCommentList',
+            data:{
+                type:<?php echo $type;?>,
+                obj_id:<?php echo $obj_id;?>,
+                token:'<?php echo $token;?>',
+                version:'<?php echo $version;?>',
+                page:1,
+                size:3
+            },
+            dataType:'json',
+            success:function(data){
+                if(data.status==1){
+                    $('.comment_num').html(data.data.size);
+                    $('.comment_list').html(data.data.html);
+                }else{
+                    if(data.status == 403) {
+                        backLogin();
+                    } else {
+                        tips(data.message);
+                    }
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <script src="<?php echo STATIC_DOMAIN;?>/js/appframework.js" type="text/javascript"></script>
+    <link href="<?php echo STATIC_DOMAIN;?>/css/style.css" type="text/css" rel="stylesheet">
+    <title>打赏列表</title>
+</head>
+<body ontouchstart="">
+<div class="content bg-white">
+    <div class="rewards-list">
+        <?php if(isset($user_list)){?>
+           <?php foreach($user_list as $v){?>
+        <a class="reward-part layout-box" href="">
+            <img class="fl" src="<?php echo Common::show_img($v['user']['avatar'],1,120,120);?>">
+               <?php if($version >= '2.3'){?>
+            <i class="<?php echo $v['user']['ico_type'];?>"></i>
+               <?php }?>
+            <p class="son-box"><span class="name fl"><?php echo $v['user']['nick_name']?></span><span class="rewards-num fr"><i class="font-ico rewards-ico"></i><?php echo $v['value']?></span></p>
+        </a>
+        <?php }}?>
+    </div>
+
+</div>
+
+</body>
+</html>

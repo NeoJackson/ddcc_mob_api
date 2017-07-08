@@ -1,0 +1,34 @@
+<?php if(isset($dynamic_list['list']) && $dynamic_list['list']){?>
+    <?php foreach($dynamic_list['list'] as $key=>$val){?>
+        <div class="user-con-part half-bor-bottom active_e">
+            <div class="layout-box">
+                <header class="pad-left">
+                    <a class="user-pic-middle" href="/user/<?php echo $val['user']['uid'];?>">
+                        <img class="b-radius-2" data-src="<?php echo Common::show_img($val['user']['avatar'],1,70,70);?>" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)" width="35" height="35">
+                     <?php if($version >= '2.3'){?>
+                        <i class="<?php echo $val['user']['ico_type'];?>"></i>
+                     <?php }?>
+                    </a>
+                </header>
+                <div class="sns-detail">
+                    <?php if($val['feed_type']==1){?>
+                        <?php include VIEWS_PATH."/center/mood.phtml";?>
+                    <?php }elseif($val['feed_type']==4){?>
+                        <?php include VIEWS_PATH."/center/topic.phtml";?>
+                    <?php }elseif($val['feed_type']==5){?>
+                        <?php include VIEWS_PATH."/center/stage.phtml";?>
+                    <?php }elseif($val['feed_type']==9 && $val['content_type']==1){?>
+                        <?php if($val['type']==1){?>
+                            <?php include VIEWS_PATH."/center/moodShare.phtml";?>
+                        <?php }elseif($val['type']==4){?>
+                            <?php include VIEWS_PATH."/center/topicShare.phtml";?>
+                        <?php }?>
+                    <?php }?>
+                    <!--底部评论等横条-->
+                    <?php include VIEWS_PATH."/center/bottomBar.phtml";?>
+                </div>
+            </div>
+
+        </div>
+    <?php }
+}?>
